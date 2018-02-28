@@ -1,0 +1,202 @@
+body {
+  background-color: #f7f7f7;
+}
+
+.post-box {
+  background-color: #FFFFFF;
+  border-radius: 6px;
+  margin-top: 20px;
+  padding: 60px;
+}
+
+.post-box .title h1 {
+  position: relative;
+  width: 100%;
+  height: 37px;
+}
+
+.post-box .title h1 span {
+  font-size: 28px;
+  color: #2E2E2E;
+  position: absolute;
+  background-color: #FFFFFF;
+  z-index: 2;
+  padding-right: 20px;
+  font-weight: bold;
+}
+
+.post-box .title h1:after {
+  content: '';
+  width: 100%;
+  position: absolute;
+  border-top: 1px solid #D8D8D8;
+  top: 50%;
+  left: 0;
+}
+
+.post-box .title h2 {
+  font-size: 26px;
+  color: #666666;
+  margin-top: 10px;
+}
+
+.post-box .post-title {
+  width: 100%;
+  font-size: 14px;
+  color: #666666;
+  margin-top: 30px;
+}
+
+.post-box .post-title span {
+  display: inline-block;
+  width: 49%;
+  font-weight: bold;
+}
+
+.post-box .post-info {
+  margin-top: 10px;
+  height: 100%;
+}
+
+.post-box .post-info table tr td {
+  font-size: 12px;
+  color: #666666;
+  line-height: 30px;
+  vertical-align: top;
+  background-image: url(../img/join-text-back.png);
+  padding-left: 20px;
+}
+
+.post-box .post-info table tr td label {
+  display: block;
+  position: relative;
+}
+
+.post-box .post-info table tr td span {
+  position: absolute;
+  left: -20px;
+}
+
+.post-box .post-info table tr td:first-child {
+  width: 46%;
+}
+
+.post-box .pagination {
+  margin-top: 40px;
+}
+
+.post-box .pagination:after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+.post-box .pagination li {
+  float: left;
+  padding: 10px 40px;
+  background-color: #FFFFFF;
+  border: 1px solid #D8D8D8;
+  border-right: none;
+  cursor: pointer;
+}
+
+.post-box .pagination li:last-child {
+  border-right: 1px solid #D8D8D8;
+  border-top-right-radius: 6px;
+}
+
+.post-box .pagination li:first-child {
+  border-top-left-radius: 6px;
+}
+
+.post-box .pagination li.active {
+  border: 1px solid #F5F5F5;
+  background-color: #F5F5F5;
+  border-left-color: #D8D8D8;
+}
+
+.post-box .pagination li.active:first-child {
+  border-left-color: #F5F5F5;
+}
+
+.post-box .pagination li:hover {
+  background-color: #F5F5F5;
+}
+
+.post-box .store-list {
+  width: 100%;
+  background-color: #F5F5F5;
+  border-radius: 0 6px 6px 6px;
+  padding: 45px;
+  box-sizing: border-box;
+}
+
+.post-box .store-list .swiper-slide > div {
+  background-size: cover;
+  background-position: center;
+}
+
+.post-box .store-list .swiper-slide h5 {
+  font-size: 14px;
+  color: #666666;
+  font-weight: bold;
+}
+
+.post-box .store-list .swiper-slide h6 {
+  font-size: 12px;
+  color: #666666;
+  margin-top: 10px;
+}
+
+.post-box .store-list .img-top {
+  width: 100%;
+  height: 380px;
+  margin-top: 30px;
+}
+
+.post-box .store-list .img-left {
+  width: 49.5%;
+  height: 330px;
+  float: left;
+  margin-right: 1%;
+  margin-top: 10px;
+}
+
+.post-box .store-list .img-right {
+  height: 330px;
+  width: 49.5%;
+  margin-top: 10px;
+  float: left;
+}
+
+.post-box.show {
+  opacity: 1!important;
+}
+
+.tx-fixed-nav {
+  position: fixed;
+  width: 150px;
+  right: 78px;
+  z-index: 9;
+  bottom: 100px;
+}
+
+.tx-fixed-nav li {
+  opacity: 0.8;
+  background: #303030;
+  border-radius: 4px;
+  color: #ffffff;
+  font-size: 12px;
+  width: 100%;
+  padding: 10px 0 10px 10px;
+  margin-bottom: 1px;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.tx-fixed-nav li i {
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  right: 10px;
+}

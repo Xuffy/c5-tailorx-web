@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>登录授权</title>
+  <style>
+    .spinner {
+      width: 60px;
+      height: 60px;
+
+      position: relative;
+      margin: 100px auto;
+    }
+
+    .double-bounce1, .double-bounce2 {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background-color: #67CF22;
+      opacity: 0.6;
+      position: absolute;
+      top: 0;
+      left: 0;
+
+      -webkit-animation: bounce 2.0s infinite ease-in-out;
+      animation: bounce 2.0s infinite ease-in-out;
+    }
+
+    .double-bounce2 {
+      -webkit-animation-delay: -1.0s;
+      animation-delay: -1.0s;
+    }
+
+    @-webkit-keyframes bounce {
+      0%, 100% {
+        -webkit-transform: scale(0.0)
+      }
+      50% {
+        -webkit-transform: scale(1.0)
+      }
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: scale(0.0);
+        -webkit-transform: scale(0.0);
+      }
+      50% {
+        transform: scale(1.0);
+        -webkit-transform: scale(1.0);
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="spinner">
+  <div class="double-bounce1"></div>
+  <div class="double-bounce2"></div>
+</div>
+<div style="width: 100%;text-align: center">正在登录</div>
+<script type="text/javascript" src="../js/main.js"></script>
+<script>
+
+  (function () {
+    var keys = window.parent.document.cookie.match(/[^ =;]+(?=\=)/g);
+    if (keys) {
+      for (var i = keys.length; i--;)
+        window.parent.document.cookie = keys[i] + '=0;expires=' + new Date(0).toUTCString()
+    }
+    window.parent.localStorage.clear();
+    window.parent.sessionStorage.clear();
+
+    store.set('tx-st', $.getUrlParam('ST'));
+
+    var redirectUrl = store.get('tx-redirect-url');
+    $.http.get({
+      url: '/v3/web/user/getCustomerInfo'
+    }).then(function (res) {
+      store.set('tx-user', res.data);
+      if (_.isEmpty(redirectUrl)) {
+        parent.location.reload();
+      } else {
+        store.remove('tx-redirect-url');
+        parent.location.href = redirectUrl;
+      }
+    });
+
+
+  })();
+</script>
+</body>
+</html>

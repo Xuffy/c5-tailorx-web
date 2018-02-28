@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>门店介绍</title>
+  <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/store-list.css">
+  <link rel="stylesheet" href="../lib/style/swiper-3.4.2.min.css">
+</head>
+<body>
+<header class="tx-header">
+  <div class="header-box tx-box">
+    <div class="logo">
+      <i></i>
+      <img src="../img/index-tailorx.png">
+    </div>
+
+    <ul class="menu">
+      <li>
+        <div class="title" onclick="window.location.href = '/index.html'">首页</div>
+      </li>
+      <li class="has-menu store">
+        <div class="title" onclick="window.location.href = '/view/store-list.html'">门店介绍</div>
+        <div class="child-menu">
+          <ul>
+            <li onclick="window.location.href = '/view/store-list.html'">全部</li>
+          </ul>
+        </div>
+      </li>
+      <li>
+        <div class="title" onclick="window.location.href = '/view/main-depot.html'">时尚资讯</div>
+      </li>
+      <li>
+        <div class="title" onclick="window.location.href = '/view/join.html'">招商加盟</div>
+      </li>
+      <li>
+        <div class="title" onclick="window.location.href = '/view/recruit.html'">诚聘英才</div>
+      </li>
+    </ul>
+
+    <div class="login tx-hide">
+      <div class="no-user">
+        <h4>登录</h4>
+        <h3>注册</h3>
+      </div>
+      <div class="user">
+        <div class="user-img" onclick="window.location.href = '/view/user-info.html'"></div>
+        <h5 onclick="window.location.href = '/view/user-info.html'" class="user-name"></h5>
+        <h4 onclick="TxMain.event.logout()">退出</h4>
+        <!--<ul class="user-nav">
+          <li onclick="window.location.href = '/view/user-info.html'">个人信息</li>
+          <li onclick="TxMain.event.logout()">退出登录</li>
+        </ul>-->
+      </div>
+    </div>
+  </div>
+</header>
+
+
+<section class="si-container"></section>
+
+<!--footer-->
+<div style="height: 320px;position: relative">
+  <footer class="tx-footer">
+    <div class="bottom">
+      <div class="tx-box">
+        <h6>Copyright © 2015-2017 ICP备16040571号-1&nbsp;&nbsp;&nbsp;&nbsp;上海顶顺线艺电子商务有限公司 版权所有<br>
+          赤乌软件(C5NET.CN)提供技术支持</h6>
+
+        <div class="qrcode">
+          <img src="../img/qr_code.png">
+          <h4>TailorX手机客户端</h4>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
+
+
+<!--template-->
+<script type="text/template" id="list-tpl">
+  <div class="si-box tx-box">
+    <div class="left">
+      <h2>{{name}}</h2>
+      <hr>
+      <label></label>
+      <h4><span>门店介绍：</span>{{introduce}}</h4>
+      <h5 onclick="window.location.href = 'store-detail.html?id={{id}}'">进入门店详情
+        <div class="more">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </h5>
+    </div>
+    <div class="right" onclick="window.location.href = 'store-detail.html?id={{id}}'"
+         style="background-image: url('{{bigImagesSmall[0]}}')"></div>
+  </div>
+
+  <div class="tx-box si-title" style="margin-bottom: -20px">
+    <hr>
+  </div>
+
+  <div class="tx-box si-swiper">
+    <div class="swiper-container swiper-container-horizontal {{'si-swiper-'+_id}}">
+      <div class="swiper-wrapper">
+
+      </div>
+    </div>
+    <div class="page-prev" onclick="STORE.event.swiperChange('{{_id}}',1)"></div>
+    <div class="page-next" onclick="STORE.event.swiperChange('{{_id}}',2)"></div>
+  </div>
+</script>
+
+
+<script type="text/javascript" src="../js/main.js"></script>
+<script type="text/javascript">
+  var _hmt = _hmt || [];
+  (function () {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?5a9341a0f2cc7b49dff1b89a8c8e54c3";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+
+</script>
+<script src='//kefu.easemob.com/webim/easemob.js'></script>
+<script type="text/javascript">
+  (function () {
+    var html = $('<div class="tx-fixed-nav customer-service" id="tx-customer-service"><ul><li>联系客服<i style=" background-image: url(../img/ic_nav_customer_service.png)"></i></li></ul></div>');
+
+    var user = store.get('tx-user') || {};
+    window.easemobim = window.easemobim || {};
+    easemobim.config = {
+      hide: true, // 隐藏自带按钮
+      autoConnect: true,
+      visitor: {                   //为必须设置。名字和联系方式               昵称-手机号-user_id        （user_id 写在 description里面）
+        trueName: '',
+        qq: '',
+        phone: '',
+        companyName: '',
+        userNickname: '',
+        description: '',
+        email: ''
+      }
+    };
+
+    html.on('click', function () {
+      easemobim.bind({configId: 'cbe22b74-e46c-4348-9ac8-12c605fa0366'});
+    });
+    $('body').append(html);
+  })();
+</script>
+
+<script type="text/javascript" src="../lib/js/swiper-3.4.2.jquery.min.js"></script>
+<script type="text/javascript">
+  var STORE = STORE || {};
+  (function (store) {
+
+    $(function () {
+      _.templateSettings = {
+        interpolate: /\{\{(.+?)\}\}/g
+      };
+      store.listData = [];
+      store.swiperList = [];
+      store.load.list($.getUrlParam('id'));
+
+      TxMain.init.headerTo(2);
+
+    });
+
+    store.template = {
+      list: $('#list-tpl').html(),
+      designers: '<div class="swiper-slide"><label style="background-image: url(\'{{photo}}\')">' +
+      '</label><h3>{{name}}</h3></div>'
+    };
+
+    store.load = {
+      list: function (pid) {
+        store.data.list(pid).then(function (data) {
+          var ele = $('.si-container');
+          ele.empty();
+          _.map(data, function (val, index) {
+            var tpl = _.template(store.template.list)
+              , dEle = null
+              , bis = [];
+            val._id = index;
+
+            // 过滤数据
+            _.filter(val.bigImages, function (val) {
+//              bis.push($.ossImage(val, 'resize,h_370'));
+              bis.push(val);
+            });
+
+            val.bigImagesSmall = bis;
+
+            ele.append(tpl(val));
+
+            // 设计师
+            dEle = ele.find('.si-swiper').eq(index).find('.swiper-wrapper');
+            dEle.empty();
+            _.map(val.designers, function (dVla) {
+              var dTpl = _.template(store.template.designers)
+                , style = '';
+              dVla.photo = $.ossImage(dVla.photo, 'resize,h_160/circle,r_160');
+
+              _.map(dVla.goodStyle, function (gsVla) {
+                style += '<span>' + gsVla + '</span>';
+              });
+              dEle.append($(dTpl(dVla)).append(style));
+            });
+
+            store.initSwiper(index);
+
+            store.listData.push(val);
+          });
+
+          $('.index-header').removeClass('show');
+        });
+      }
+    };
+
+
+    store.event = {
+      swiperChange: function (index, type) {
+        var s = store.swiperList[index];
+        switch (type) {
+          case 1:
+            s.slidePrev();
+            break;
+          case 2:
+            s.slideNext();
+            break;
+        }
+      },
+      showStoreCity: function () {
+        $('.index-header').toggleClass('show');
+      }
+    };
+
+    store.data = {
+      list: function (pid) {
+        return $.post(TxConfig.env.headUrl + '/web/findStoreList', {province: pid})
+          .then(function (res) {
+            res = JSON.parse(res);
+            if (res.code !== '200') {
+              throw new Error('接口请求异常 - findStoreList');
+            }
+            return res.data;
+          });
+      }
+    };
+
+    store.initSwiper = function (type) {
+      setTimeout(function () {
+        store.swiperList.push(new Swiper('.si-swiper-' + type, {
+          slidesPerView: 5,
+          speed: 800,
+          simulateTouch: false
+        }));
+      }, 0);
+    }
+
+
+  })(STORE);
+</script>
+</body>
+</html>

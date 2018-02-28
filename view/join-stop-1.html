@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>个人信息</title>
+  <meta name="referrer" content="never">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/user.css">
+  <link rel="stylesheet" href="../css/join-step.css">
+</head>
+<body>
+
+<link rel="import" href="../components/header.html?__inline">
+
+<!--<div class="tx-box">
+  <ul class="tx-nvaBar">
+    <li>您现在的位置：</li>
+    <li onclick="window.history.go(-1)">招商加盟&nbsp;&nbsp;&gt;&nbsp;&nbsp;</li>
+    <li>个人信息</li>
+  </ul>
+</div>-->
+
+<div class="tx-box" id="join-step-app" style="position: relative;margin-top: 110px;">
+  <ul class="user-menu">
+    <li onclick="window.location.href = 'user-info.html'">个人信息</li>
+    <li class="active" id="go-joinStep">加盟流程</li>
+  </ul>
+
+  <div class="user-box">
+    <ul class="step-box">
+      <li class="active">
+        <i class="icon"></i>
+        <div class="text">
+          <h6>第一步</h6>
+          <h5>提交申请</h5>
+        </div>
+      </li>
+      <li>
+        <i class="icon"></i>
+        <div class="text">
+          <h6>第二步</h6>
+          <h5>支付费用</h5>
+        </div>
+      </li>
+      <li>
+        <i class="icon"></i>
+        <div class="text">
+          <h6>第三步</h6>
+          <h5>资料审核</h5>
+        </div>
+      </li>
+      <li>
+        <i class="icon"></i>
+        <div class="text">
+          <h6>第四步</h6>
+          <h5>达成合作</h5>
+        </div>
+      </li>
+    </ul>
+
+    <div class="content">
+      <div class="user-form-item" :class="{'input-focus':stepData.realName}">
+        <label class="title">授权人真实姓名</label>
+        <input type="text" class="user-input" v-model="stepData.realName"/>
+      </div>
+
+      <div class="user-form-item" :class="{'input-focus':stepData.icard}">
+        <label class="title">授权人身份证号</label>
+        <input type="text" class="user-input" v-model="stepData.icard"/>
+      </div>
+
+      <div class="user-form-item" :class="{'input-focus':stepData.phone}">
+        <label class="title">授权人联系电话</label>
+        <input type="text" class="user-input" v-model="stepData.phone"/>
+      </div>
+
+      <div>
+        <i class="tx-checkbox" :class="{'active':isAgree}" @click="isAgree = !isAgree"></i>阅读并同意
+        <span style="color: #1E90FF;cursor: pointer" @click="showText = true">《TAILORX网店加盟协议》</span>
+      </div>
+
+      <div style="margin-top: 50px" class="user-btn" id="submit-step" @click="submit">下一步</div>
+    </div>
+  </div>
+
+  <div class="join-shade-text" :class="{show:showText}" @click="showText = false">
+    <iframe class="box" src="join-agreement.html"></iframe>
+  </div>
+
+</div>
+
+<link rel="import" href="../components/footer.html?__inline">
+
+
+<script type="text/javascript" src="../js/main.js"></script>
+<link rel="import" href="../components/script.html?__inline">
+<script type="text/javascript" src="../lib/js/vue.min.js"></script>
+<script type="text/javascript" src="../lib/layer/layer.js"></script>
+<script type="text/javascript">
+
+  TxMain.init.joinStep()
+    .then(function () {
+      new Vue({
+        el: '#join-step-app',
+        data: {
+          stepData: {},
+          isAgree: false,
+          showText: false
+        },
+        created: function () {
+          var step = store.get('tx-join-step');
+
+          TxMain.event.checkJoinStep();
+
+          setTimeout(function () {
+            $('.user-form-item .user-input').on('focus', function () {
+              $(this).parents('.user-form-item').addClass('input-focus');
+            }).on('focusout', function () {
+              if (!$(this).val()) {
+                $(this).parents('.user-form-item').removeClass('input-focus');
+              }
+            });
+          }, 0);
+
+          if (_.isEmpty(step)) {
+            return false;
+          }
+
+
+          this.stepData.realName = step.realName;
+          this.stepData.icard = step.icard;
+          this.stepData.phone = step.phone;
+          this.stepData.id = step.id;
+
+        },
+        methods: {
+          submit: function () {
+            var _this = this;
+
+            if (!this.stepData.realName || !this.stepData.icard || !this.stepData.phone) {
+              return layer.tips('请填写完整信息', '#submit-step', {tips: 1});
+            }
+
+            if (this.stepData.realName.length > 10) {
+              return layer.tips('名字只能输入10个字以内', '#submit-step', {tips: 1});
+            }
+            if (!this.isAgree) {
+              return layer.tips('请阅读TAILORX网店加盟协议', '#submit-step', {tips: 1});
+            }
+
+            $.http.post({
+              url: '/v3/web/certigier',
+              data: _this.stepData
+            }).then(function () {
+              store.remove('tx-join-step');
+              TxMain.init.joinStep().then(function () {
+                window.location.href = 'join-stop-2.html';
+              });
+            });
+          }
+        }
+      });
+    });
+
+
+</script>
+</body>
+</html>

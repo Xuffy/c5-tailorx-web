@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>TailorX官网首页</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="lib/style/swiper-3.4.2.min.css">
+  <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+<header class="tx-header">
+  <div class="header-box tx-box">
+    <div class="logo">
+      <i></i>
+      <img src="../img/index-tailorx.png">
+    </div>
+
+    <ul class="menu">
+      <li>
+        <div class="title" onclick="window.location.href = '/index.html'">首页</div>
+      </li>
+      <li class="has-menu store">
+        <div class="title" onclick="window.location.href = '/view/store-list.html'">门店介绍</div>
+        <div class="child-menu">
+          <ul>
+            <li onclick="window.location.href = '/view/store-list.html'">全部</li>
+          </ul>
+        </div>
+      </li>
+      <li>
+        <div class="title" onclick="window.location.href = '/view/main-depot.html'">时尚资讯</div>
+      </li>
+      <li>
+        <div class="title" onclick="window.location.href = '/view/join.html'">招商加盟</div>
+      </li>
+      <li>
+        <div class="title" onclick="window.location.href = '/view/recruit.html'">诚聘英才</div>
+      </li>
+    </ul>
+
+    <div class="login tx-hide">
+      <div class="no-user">
+        <h4>登录</h4>
+        <h3>注册</h3>
+      </div>
+      <div class="user">
+        <div class="user-img" onclick="window.location.href = '/view/user-info.html'"></div>
+        <h5 onclick="window.location.href = '/view/user-info.html'" class="user-name"></h5>
+        <h4 onclick="TxMain.event.logout()">退出</h4>
+        <!--<ul class="user-nav">
+          <li onclick="window.location.href = '/view/user-info.html'">个人信息</li>
+          <li onclick="TxMain.event.logout()">退出登录</li>
+        </ul>-->
+      </div>
+    </div>
+  </div>
+</header>
+
+
+
+<div class="video-box">
+  <video autoplay="true" loop="true" muted="true" style="display: inline-block;">
+    <source src="video/tailorx-index.mp4" type="video/mp4">
+    您的浏览器不支持 video 标签。
+  </video>
+  <div class="box">
+    <span></span>
+  </div>
+</div>
+
+<div class="index-title tx-box" id="js-ts">
+  <img src="img/index-feature_ofproduct.png">
+  <h4><span>产品特色</span></h4>
+</div>
+
+<div class="index-feature tx-box">
+  <div class="swiper-container swiper-container-horizontal swiper-feature">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">
+        <div class="left-img animation-up-30" style="background-image: url('img/index-gaoxiaolv.jpg')"></div>
+        <ul class="right-content">
+          <li class="title animation-up-30">高效率</li>
+          <li class="text animation-up-30">
+            TailorX将服装量体设计和定制打版由原先工厂套版流程转到门店设计师定制，而将工厂变为简单的流程生产，
+            从而实现大规模的个性化服装定制。将单件服装生产周期由传统的1个月左右缩短到7天。
+          </li>
+        </ul>
+      </div>
+      <div class="swiper-slide">
+        <div class="left-img animation-up-30" style="background-image: url('img/index-dichengben.jpg')"></div>
+        <ul class="right-content">
+          <li class="title animation-up-30">低成本</li>
+          <li class="text animation-up-30">
+            TailorX通过用户发出款式需求、设计师量体设计打版、工厂按版生产的C2M模式，并用2年的实践经验探索出工厂定制工艺标准流程，
+            大大减少了工厂参与的步骤，从而将服装私人定制高悬不下的价格，降到传统定制价格的四分之一甚至更低。
+          </li>
+        </ul>
+      </div>
+      <div class="swiper-slide">
+        <div class="left-img animation-up-30" style="background-image: url('img/index-fugaiguang.jpg')"></div>
+        <ul class="right-content">
+          <li class="title animation-up-30">覆盖广</li>
+          <li class="text animation-up-30">
+            TailorX将线下门店密布于写字楼、商业中心、社区住宅，实现上班或在家就可以享受服装定制体验。
+            实现每家门店覆盖1km范围内用户，颠覆平常商场服装购买形式，彻底解决传统私人定制距离远问题。
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <ul class="feature-pagination">
+    <li class="active" onclick="TailorX.swiperFeature.slideTo(0)">
+      <i class="icon" style="background-image: url('img/index-gaoxiao.png')"></i>
+      <h3>高效率</h3>
+      <h5>标准化品牌定制工艺</h5>
+    </li>
+    <li onclick="TailorX.swiperFeature.slideTo(1)">
+      <i class="icon" style="background-image: url('img/index-chengben.png')"></i>
+      <h3>低成本</h3>
+      <h5>C2M模式控制成本</h5>
+    </li>
+    <li onclick="TailorX.swiperFeature.slideTo(2)">
+      <i class="icon" style="background-image: url('img/index-fugaiguang.png')"></i>
+      <h3>覆盖广</h3>
+      <h5>广布线下门店</h5>
+    </li>
+  </ul>
+</div>
+
+<div class="index-title tx-box">
+  <img src="img/index-track_progress.png">
+  <h4><span>实时掌握定制进度</span></h4>
+</div>
+
+<div class="tx-box index-schedule need-animate">
+  <img src="img/index-phone1.png" class="img1 animation-up-30">
+  <img src="img/index-pic_liucheng1.png" class="img2 animation-up-30">
+  <div class="content">
+    <div class="back"></div>
+    <img src="img/index-zhuangshi1.png" class="tag animation-up-30">
+    <h3 class="animation-up-30"><span>全程享受定制体验</span><br>
+      清晰、可控、洞见您的服装设计理念；制衣过程您将开放、透明、直观的参与观赏；实时、在线、同步您的服装设计数据；与设计师一起将服装定制变成您的艺术创作</h3>
+    <h5 class="animation-up-30">2017-2-20 12:40</h5>
+  </div>
+</div>
+
+<div class="tx-box index-schedule second need-animate">
+  <img src="img/index-pic_liucheng2.png" class="img3 animation-up-30">
+  <img src="img/index-phone2.png" class="img4 animation-up-30">
+  <div class="content">
+    <div class="back"></div>
+    <img src="img/index-zhuangshi1.png" class="tag animation-up-30">
+    <h3 class="animation-up-30" style="text-align: left"><span>工厂定制流程实时展示</span><br>
+      可实时查看进度，服装是在裁剪、缝制或是整烫环节，颠覆性加入可时时跟踪查看质检和发货详情，保证您的全程参与</h3>
+    <h5 class="animation-up-30">2017-2-20 12:40</h5>
+  </div>
+</div>
+
+<div class="index-procedure">
+  <div class="index-title tx-box">
+    <img src="img/index-customization_progre.png">
+    <h4><span style="background-image: url('img/index-bg.png')">7天完成定制流程</span></h4>
+  </div>
+
+  <div class="swiper-procedure-box">
+    <div class="swiper-container swiper-container-horizontal swiper-procedure">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <div>
+            <img src="img/index-yuyue.png">
+            <img src="img/index-yuyue_xuan.png">
+          </div>
+          <label></label>
+          <h4>1/线上预约</h4>
+        </div>
+        <div class="swiper-slide">
+          <div>
+            <img src="img/index-qiatan.png">
+            <img src="img/index-qiatan_xuan.png">
+          </div>
+          <label></label>
+          <h4>2/需求洽谈</h4>
+        </div>
+        <div class="swiper-slide">
+          <div>
+            <img src="img/index-sheji.png">
+            <img src="img/index-sheji_xuan.png">
+          </div>
+          <label></label>
+          <h4>3/设计打版</h4>
+        </div>
+        <div class="swiper-slide">
+          <div>
+            <img src="img/index-fengren.png">
+            <img src="img/index-fengren_xuan.png">
+          </div>
+          <label></label>
+          <h4>4/裁剪缝制</h4>
+        </div>
+        <div class="swiper-slide">
+          <div>
+            <img src="img/index-baozhuang.png">
+            <img src="img/index-baozhuang_xuan.png">
+          </div>
+          <label></label>
+          <h4>5/包装入库</h4>
+        </div>
+        <div class="swiper-slide">
+          <div>
+            <img src="img/index-wuliu.png">
+            <img src="img/index-wuliu_xuan.png">
+          </div>
+          <label></label>
+          <h4>6/物流发货</h4>
+        </div>
+        <div class="swiper-slide">
+          <div>
+            <img src="img/index-shouhuo.png">
+            <img src="img/index-shouhuo_xuan.png">
+          </div>
+          <label></label>
+          <h4>7/检查收货</h4>
+        </div>
+      </div>
+    </div>
+    <i class="jiandao"></i>
+    <ul class="text-box">
+      <li>用户在APP选择心仪设计师，填写定制需求，同时上传参照图片后提交预约订单</li>
+      <li>用户在与设计师预约的时间抵达门店与设计师沟通定制需求，完成量体数据录入和面料选择</li>
+      <li>服装设计师根据用户需求进行服装版型制作，并将版型绘制成设计师稿及工艺说明</li>
+      <li>工厂接收订单开始生产，由跟单员到库房领料再分配生产线，订单进入到生产流水线进行裁剪缝制工艺</li>
+      <li>设计服装缝制完成后，会进入工厂整烫车间进行整烫和挂凉，成型后包装入库</li>
+      <li>通知第三方物流公司进行送货，用户可在app上查看物流信息</li>
+      <li>用户对定制体验和服装设计进行验收评价，如果不符合需求可要求发往工厂进行整改</li>
+    </ul>
+  </div>
+</div>
+
+<div class="index-title tx-box">
+  <img src="img/index-track_progress.png">
+  <h4><span>用户定制故事</span></h4>
+</div>
+
+
+<ul class="index-story tx-box need-animate">
+  <li>
+    <i class="header-img" style="background-image: url('img/index-tiao.jpg')"></i>
+    <h4 class="animation-up-30">赵小跳（旅游体验师）</h4>
+    <h5 class="animation-up-30">
+      都说最迷人的姑娘是百变的，你摸不透自己到底有多了解她。
+      我就是这样一个姑娘，不看俗世眼光，不听旁人非议，我可以淘宝小碎花，拿起麦克风跟着音乐尽情摇摆，也可以踩着高跟鞋，在职场游刃有余。
+      我是特别独立但不特立独行的自己，从小妈妈就告诉我，女孩子要有自己的个性，不因富贵浮夸，也不因落魄自卑。在过去的很多年里，一直保持自己的个性，成为如今这个多面百变的自己。
+      简约或者普通的款式是日常穿搭的必备良品，一些时尚好用的小物件就可以使得整个扮相大不相同......
+    </h5>
+    <label onclick="window.location.href = 'view/story-info-1.html'">查看全文</label>
+  </li>
+  <li>
+    <i class="header-img" style="background-image: url('img/index-nainai.jpg')"></i>
+    <h4 class="animation-up-30">易奶奶（退休老人）</h4>
+    <h5 class="animation-up-30">
+      在奶奶那个年代，粗布手缝的外套，大多都是藏蓝或者纯黑，偶尔有手巧的女子，在自己的衣角绣上
+      一朵花或者用难得的彩色布料做一个印花的贴布已是潮流至极了。等到孩子们长大成家，时光也在她身
+      上留下了深刻的印记，本是一头青丝的窈窕少女已是银发苍苍步履蹒跚的老者。想着奶奶在花样的年纪都没有缤纷过
+      ，作为晚辈，总觉得应该为她做点什么。不管是哪个时代，想来应该没有哪个女子不爱红装吧。
+      也许很多人会说，韶华不再，没必要耀眼闪亮。
+      可是谁说耋耄之年，就要放弃变美的追求呢？
+      ......
+    </h5>
+    <label onclick="window.location.href = 'view/story-info-2.html'">查看全文</label>
+  </li>
+  <li>
+    <i class="header-img" style="background-image: url('img/index-ye.jpg')"></i>
+    <h4 class="animation-up-30">William（市场营销）</h4>
+    <h5 class="animation-up-30">
+      愿你出走这半生，归去仍是少年郎
+      杰哥像这个城市的大多数人一样，背负着时光，背负着梦想，在离家1490公里的异乡，远离故乡的黄泥土，
+      在高楼林立的城市里做着让人艳羡却也辛苦无比的工作——和一群大学时的伙伴自主创业。
+      杰哥每每放假的时候都会回家看看，看看皱纹日渐清晰的父母亲人，在村头的田埂上站着发呆，畅想未来的日
+      子会是什么样子，想着想着就笑了，想着想着又哭了。会在回家的时候，陪爸妈一起散步，看着太阳从地平线落下，看
+      北归的大雁在夜幕下咿咿呀呀的飞过
+      ......
+    </h5>
+    <label onclick="window.location.href = 'view/story-info-3.html'">查看全文</label>
+  </li>
+</ul>
+<div class="index-title tx-box">
+  <img src="img/index-track_progress.png">
+  <h4><span>线下门店</span></h4>
+</div>
+
+<div class="index-store tx-box">
+  <div class="swiper-container swiper-container-horizontal swiper-store">
+    <div class="swiper-wrapper">
+    </div>
+  </div>
+  <div class="store-pagination left" onclick="TailorX.swiperStore.slidePrev()">
+    <i></i>
+  </div>
+  <div class="store-pagination right" onclick="TailorX.swiperStore.slideNext()">
+    <i></i>
+  </div>
+</div>
+
+
+<div style="height: 320px;position: relative">
+  <footer class="tx-footer">
+    <div class="bottom">
+      <div class="tx-box">
+        <h6>Copyright © 2015-2017 ICP备16040571号-1&nbsp;&nbsp;&nbsp;&nbsp;上海顶顺线艺电子商务有限公司 版权所有<br>
+          赤乌软件(C5NET.CN)提供技术支持</h6>
+
+        <div class="qrcode">
+          <img src="../img/qr_code.png">
+          <h4>TailorX手机客户端</h4>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
+
+
+<script type="text/javascript" src="js/main.js"></script>
+<script type="text/javascript">
+  var _hmt = _hmt || [];
+  (function () {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?5a9341a0f2cc7b49dff1b89a8c8e54c3";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+
+</script>
+<script src='//kefu.easemob.com/webim/easemob.js'></script>
+<script type="text/javascript">
+  (function () {
+    var html = $('<div class="tx-fixed-nav customer-service" id="tx-customer-service"><ul><li>联系客服<i style=" background-image: url(../img/ic_nav_customer_service.png)"></i></li></ul></div>');
+
+    var user = store.get('tx-user') || {};
+    window.easemobim = window.easemobim || {};
+    easemobim.config = {
+      hide: true, // 隐藏自带按钮
+      autoConnect: true,
+      visitor: {                   //为必须设置。名字和联系方式               昵称-手机号-user_id        （user_id 写在 description里面）
+        trueName: '',
+        qq: '',
+        phone: '',
+        companyName: '',
+        userNickname: '',
+        description: '',
+        email: ''
+      }
+    };
+
+    html.on('click', function () {
+      easemobim.bind({configId: 'cbe22b74-e46c-4348-9ac8-12c605fa0366'});
+    });
+    $('body').append(html);
+  })();
+</script>
+
+<script type="text/javascript" src="lib/js/swiper-3.4.2.jquery.min.js"></script>
+<script type="text/javascript">
+  var TailorX = TailorX || {};
+
+
+  (function (tx) {
+    $(function () {
+      tx.swiperFeature = tx.swiper.feature();
+      tx.swiper.procedure();
+      tx.init.animate();
+      tx.init.storeList();
+      tx.beforeScrollTop = 0;
+      _.templateSettings = {
+        interpolate: /\{\{(.+?)\}\}/g
+      };
+
+      TxMain.init.headerTo(1);
+
+    });
+
+
+    tx.device = {
+      wH: document.body.offsetWidth
+    };
+
+
+    tx.init = {
+      animate: function () {
+        $(window).on('load resize scroll', function () {
+          var $this = $(this)
+            , wst = $this.scrollTop()
+            , cmEl = $('#tx-customer-service')
+            , iHeader = $('.tx-header');
+
+
+          if ($('#js-ts').offset().top - wst + 130 > window.innerHeight) {
+            cmEl.addClass('hide');
+          } else {
+            cmEl.removeClass('hide');
+          }
+
+          // header 滚动监听
+          if (wst > 150) {
+            iHeader.removeClass('header-layout');
+          } else {
+            iHeader.addClass('header-layout');
+          }
+
+          $.each($('.need-animate'), function (index, val) {
+            var ot = $(val).offset().top;
+            if (ot - wst < $this.height() && ot - wst > $(val).height() * -1) {
+              $(val).addClass('animation');
+            } else {
+              $(val).removeClass('animation');
+            }
+          });
+
+          tx.beforeScrollTop = wst;
+
+        });
+      },
+      storeList: function () {
+        $.post(TxConfig.env.headUrl + '/web/findStoreList')
+          .then(function (res) {
+            res = JSON.parse(res);
+            if (res.code !== '200') {
+              throw new Error('查询门店异常');
+            }
+            var html = '';
+            $.each(res.data, function (index, val) {
+              html += '<div class="swiper-slide">' +
+                '<div class="right-box" style="background-image: url(\'' + val.bigImages[0] + '\')"></div>' +
+                '<ul class="left-box">' +
+                '<li class="title">' + val.name + '</li>' +
+                '<li class="line"></li><li class="tag"></li>' +
+                '<li class="address">' +
+                '<span>门店介绍：</span>' + val.introduce + '</li>' +
+                '<li class="info" onclick="window.location.href = \'/view/store-detail.html?id=' + val.id + '\'">进入门店详情' +
+                '<i class="icon-arrow"></i></li></ul></div>'
+            });
+
+            $('.swiper-store .swiper-wrapper').html(html);
+
+            tx.swiperStore = tx.swiper.store();
+
+          });
+      }
+    };
+
+    tx.swiper = {
+      procedure: function () {
+        var slideNum = 7;
+        slideNum = tx.device.wH < 960 ? 5 : slideNum;
+        slideNum = tx.device.wH < 768 ? 3 : slideNum;
+        return new Swiper('.swiper-procedure', {
+          autoplay: 2000,
+          loop: true,
+          speed: 2000,
+          simulateTouch: false,
+          slidesPerView: slideNum,
+          observer: true,
+          autoplayDisableOnInteraction: true,
+          onSlideChangeStart: function (swiper) {
+            $('.swiper-procedure .swiper-slide').removeClass('active')
+              .eq(swiper.activeIndex + (parseInt(slideNum / 2))).addClass('active');
+            $('.index-procedure .jiandao').addClass('active');
+          },
+          onSlideChangeEnd: function (swiper) {
+            $('.swiper-procedure-box .text-box li').removeClass('active')
+              .eq((swiper.realIndex + parseInt(slideNum / 2)) % slideNum).addClass('active');
+            $('.index-procedure .jiandao').removeClass('active');
+          }
+        });
+      },
+      feature: function () {
+        return new Swiper('.swiper-feature', {
+          speed: 500,
+          simulateTouch: false,
+          onSlideChangeStart: function (swiper) {
+            $('.feature-pagination li').removeClass('active')
+              .eq(swiper.activeIndex).addClass('active');
+          }
+        });
+      },
+      store: function () {
+        return new Swiper('.swiper-store', {
+          speed: 800,
+          spaceBetween: 30,
+          loop: true,
+          simulateTouch: false,
+          autoHeight: true
+        });
+      }
+    };
+
+  })(TailorX);
+
+</script>
+</body>
+</html>

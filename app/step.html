@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TailorX工厂定制流程</title>
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    img {
+      width: 100%;
+    }
+
+    #btn {
+      width: 25%;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      transition: all .8s;
+    }
+
+    #btn.hide {
+      opacity: 0;
+    }
+
+    p.go {
+      position: absolute;
+      top: 0;
+      left: 25%;
+      width: 50%;
+      height: 50px;
+    }
+
+    .btn2 {
+      width: 42%;
+      height: 46px;
+      line-height: 46px;
+      margin: 0 auto;
+      border-radius: 5px;
+      background-color: #ff3366;
+      color: #FFFFFF;
+      font-size: 16px;
+      letter-spacing: 3px;
+      text-align: center;
+      margin-bottom: 40px;
+      cursor: pointer;
+    }
+
+    #btn {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 46px;
+      color: #FFFFFF;
+      font-size: 14px;
+      opacity: .94;
+      background-color: #ff3366;
+    }
+  </style>
+</head>
+<body>
+<img src="../img/app/dzlc.jpg">
+<div class="btn2" onclick="goUrl()">
+  马上定制体验
+  <!--<p onclick="goUrl()" class="go"></p>-->
+</div>
+
+<div id="btn" onclick="goUrl()">
+  定制
+</div>
+<!--<img id="btn" src="../img/btn.png" onclick="goUrl()">-->
+
+
+<script type="text/javascript">
+  var userAgent = navigator.userAgent
+    , device = {
+    ios: !!userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/),
+    android: userAgent.indexOf('Android') > -1 || userAgent.indexOf('Linux') > -1
+  };
+
+  if (device.android) {
+    document.getElementById('btn').setAttribute('class', 'hide');
+  } else {
+    window.onscroll = function () {
+      var t = document.documentElement.scrollTop || document.body.scrollTop;  //获取距离页面顶部的距离
+      if ((document.body.clientHeight - window.screen.height - 100) < t) {
+        document.getElementById('btn').setAttribute('class', 'hide');
+      } else {
+        document.getElementById('btn').setAttribute('class', '');
+      }
+    };
+  }
+
+  function goUrl() {
+    if (device.android) {
+      window.location.href = 'native://tailor.x.sch/designer';
+    } else if (device.ios) {
+      window.webkit.messageHandlers.goCustom.postMessage(null);
+    }
+  }
+
+</script>
+</body>
+</html>

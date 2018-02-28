@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>门店介绍</title>
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/store-list.css">
+  <link rel="stylesheet" href="../lib/style/swiper-3.4.2.min.css">
+</head>
+<body>
+<link rel="import" href="../components/header.html?__inline">
+
+<section class="si-container"></section>
+
+<!--footer-->
+<link rel="import" href="../components/footer.html?__inline">
+
+<!--template-->
+<script type="text/template" id="list-tpl">
+  <div class="si-box tx-box">
+    <div class="left">
+      <h2>{{name}}</h2>
+      <hr>
+      <label></label>
+      <h4><span>门店介绍：</span>{{introduce}}</h4>
+      <h5 onclick="window.location.href = 'store-detail.html?id={{id}}'">进入门店详情
+        <div class="more">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </h5>
+    </div>
+    <div class="right" onclick="window.location.href = 'store-detail.html?id={{id}}'"
+         style="background-image: url('{{bigImagesSmall[0]}}')"></div>
+  </div>
+
+  <div class="tx-box si-title" style="margin-bottom: -20px">
+    <hr>
+  </div>
+
+  <div class="tx-box si-swiper">
+    <div class="swiper-container swiper-container-horizontal {{'si-swiper-'+_id}}">
+      <div class="swiper-wrapper">
+
+      </div>
+    </div>
+    <div class="page-prev" onclick="STORE.event.swiperChange('{{_id}}',1)"></div>
+    <div class="page-next" onclick="STORE.event.swiperChange('{{_id}}',2)"></div>
+  </div>
+</script>
+
+
+<script type="text/javascript" src="../js/main.js"></script>
+<link rel="import" href="../components/script.html?__inline">
+<script type="text/javascript" src="../lib/js/swiper-3.4.2.jquery.min.js"></script>
+<script type="text/javascript">
+  var STORE = STORE || {};
+  (function (store) {
+
+    $(function () {
+      _.templateSettings = {
+        interpolate: /\{\{(.+?)\}\}/g
+      };
+      store.listData = [];
+      store.swiperList = [];
+      store.load.list($.getUrlParam('id'));
+
+      TxMain.init.headerTo(2);
+
+    });
+
+    store.template = {
+      list: $('#list-tpl').html(),
+      designers: '<div class="swiper-slide"><label style="background-image: url(\'{{photo}}\')">' +
+      '</label><h3>{{name}}</h3></div>'
+    };
+
+    store.load = {
+      list: function (pid) {
+        store.data.list(pid).then(function (data) {
+          var ele = $('.si-container');
+          ele.empty();
+          _.map(data, function (val, index) {
+            var tpl = _.template(store.template.list)
+              , dEle = null
+              , bis = [];
+            val._id = index;
+
+            // 过滤数据
+            _.filter(val.bigImages, function (val) {
+//              bis.push($.ossImage(val, 'resize,h_370'));
+              bis.push(val);
+            });
+
+            val.bigImagesSmall = bis;
+
+            ele.append(tpl(val));
+
+            // 设计师
+            dEle = ele.find('.si-swiper').eq(index).find('.swiper-wrapper');
+            dEle.empty();
+            _.map(val.designers, function (dVla) {
+              var dTpl = _.template(store.template.designers)
+                , style = '';
+              dVla.photo = $.ossImage(dVla.photo, 'resize,h_160/circle,r_160');
+
+              _.map(dVla.goodStyle, function (gsVla) {
+                style += '<span>' + gsVla + '</span>';
+              });
+              dEle.append($(dTpl(dVla)).append(style));
+            });
+
+            store.initSwiper(index);
+
+            store.listData.push(val);
+          });
+
+          $('.index-header').removeClass('show');
+        });
+      }
+    };
+
+
+    store.event = {
+      swiperChange: function (index, type) {
+        var s = store.swiperList[index];
+        switch (type) {
+          case 1:
+            s.slidePrev();
+            break;
+          case 2:
+            s.slideNext();
+            break;
+        }
+      },
+      showStoreCity: function () {
+        $('.index-header').toggleClass('show');
+      }
+    };
+
+    store.data = {
+      list: function (pid) {
+        return $.post(TxConfig.env.headUrl + '/web/findStoreList', {province: pid})
+          .then(function (res) {
+            res = JSON.parse(res);
+            if (res.code !== '200') {
+              throw new Error('接口请求异常 - findStoreList');
+            }
+            return res.data;
+          });
+      }
+    };
+
+    store.initSwiper = function (type) {
+      setTimeout(function () {
+        store.swiperList.push(new Swiper('.si-swiper-' + type, {
+          slidesPerView: 5,
+          speed: 800,
+          simulateTouch: false
+        }));
+      }, 0);
+    }
+
+
+  })(STORE);
+</script>
+</body>
+</html>

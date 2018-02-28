@@ -1,0 +1,155 @@
+@charset "utf-8";
+/**
+ * TailorX index style
+ */
+.fl{float:left;}
+.fr{float:right;}
+.ut-mc{width:100%;overflow:hidden;margin:0 auto;}
+.ut-mw{width: 100%;overflow:hidden;margin:0 auto;}
+
+/**
+ * Module:Navigation
+ */
+.first-section{height:auto;width: 100%;}
+.logo-icon{float:left;}
+.menu-list{overflow:hidden;}
+.menu-list li{float:left;margin-right:87px;line-height:64px;}
+.menu-list li a{font-size:16px;color:#999;}
+.menu-list li a.nav-active{color:#f62f5e;}
+.menu-list li a:hover{text-decoration:none;color:#F62F5E;}
+.half-circle{position:absolute;display:block;width:126px;height:354px;background:url(../img/img_small_circle_bg.png) no-repeat left top;margin-top:310px;left:0;}
+/**Module:First Section Part**/
+.fashion{background:url(../img/small_phone.png) no-repeat 862px 90px;position:relative;}
+.fashion img{width: 100%;height:auto;}
+.left-part{width:528px;height:600px;}
+.left-part{margin-top:250px;}
+.right-part{position:absolute;right:0;width:608px;height:800px;margin-top:65px;background:url(../img/great_phone.png) no-repeat 62px -42px;padding-top:40px;}
+.left-part h1{font-size:55px;color:#333;font-weight:500;}
+.left-part h2{font-size:55px;color:#666;font-weight:normal;margin-top:35px;}
+.left-part p{font-size:17px;color:#999;margin-top:52px;line-height:35px;height:243px;}
+.under-img{position:absolute;top:221px;right:32px;width:224px;height:396px;background:url(../img/img2.jpg) no-repeat left top;}
+.above-img{position:absolute;top:120px;left:156px;width:262px;height:465px;background:url(../img/img1.jpg) no-repeat left top;}
+/**
+ * Module:Second Section Part
+ */
+.second-section{margin-top:160px;position:relative;height:740px;}
+.grey-bg{background-color:#f7f7f7;width: 60%;margin-right: 10%;padding-bottom: 20px;}
+.app_detail{position:absolute;width: 46%;height: auto;    margin-top: -2%;margin-left: 10%;}
+.app_detail img{width: 100%;;height: auto;}
+.version-info{width: 48%;margin-top: 68px;padding: 0 5% 0 0px;}
+.version-info h1{font-size:36px;color:#333;font-weight:normal;}
+.version-info p{height:100px;margin-bottom:40px;font-size:14px;color:#999;margin-top:45px;line-height:34px;text-indent:2em;text-align:justify;overflow:hidden;}
+.separ-line{display:block;width:84px;height:2px;background-color:#979797;margin-bottom:160px;}
+.of-btn{display:inline-block;width:150px;height:50px;border-radius:25px;border:1px solid #979797;font-size:14px;color:#333;text-align:center;line-height:50px;text-indent:24px;margin-bottom: 10px;}
+.ios-btn{margin-right:30px;background:url(../img/apple.png) no-repeat 30px center;}
+.android-btn{background:url(../img/android.png) no-repeat 18px center;}
+.of-btn:hover{text-decoration:none;cursor:pointer;}
+/**
+ * Module:Third Section Part
+ */
+.third-section{margin-top:50px;position:relative;}
+.of-title{font-size:36px;color:#333;font-weight:500;text-align:center;margin-bottom:65px;}
+.item-lists{width:100%;overflow:hidden;}
+.item-lists li{float:left;overflow:hidden;width:33.3%;text-align:center;}
+.item-lists li a{display:block;width:80px;height:80px;margin:0 auto;margin-bottom:35px;}
+.item-lists li h2{font-size:16px;color:#333;font-weight:500;margin-bottom:35px;}
+.item-lists li p{font-size:12px;color:#999;font-weight:500;line-height:30px;}
+.item0{background:url(../img/time.png) no-repeat center top;}
+.item1{background:url(../img/custom.png) no-repeat center top;}
+.item2{background:url(../img/numeral.png) no-repeat center top;}
+/**
+ * Module:Forth Section Part
+ */
+.forth-section{margin-top:160px;position:relative;height:1034px;background:url(../img/img_rapid_customization_bg.png) no-repeat center top / cover;}
+.forth-title{font-size:36px;color:#fff;margin:130px 0 98px 0;font-weight:500;text-align:center;}
+.slide-wrap{width:100%;height:650px;}
+.ut-Slide{font-size: 12px;position:relative;width:100%;height:650px;margin:115px auto 0;}
+.ut-Slide ul{position:relative;width:70%;height:650px;margin:0 auto;padding:0;}
+.ut-Slide li{position:absolute;list-style:none;background:rgba(255,255,255,1);width:0;height:0;top:146px;left:377px;z-index:0;cursor:pointer;border-radius:3px;margin:0;padding:0;}
+.ut-Slide li p{color:#fff;font-size:16px;text-align:center;margin-top:20px;}
+.ut-Slide li img{width:100%;height:auto;vertical-align:top;}
+.ut-Slide section{ position: absolute; top: 50%;margin-top: -70px; cursor: pointer;z-index:99;}
+.ut-Slide section.prev-btn{left:0;}
+.ut-Slide section.next-btn{right:0;  }
+.prev-btn,.next-btn{width:100px;height:100px;}
+.prev-btn{background:url(../img/arrow_left.png) no-repeat center top;}
+.next-btn{background:url(../img/arrow_right.png) no-repeat center top;}
+
+/**
+ * Join us Style
+ */
+.navi{padding-top:20px;padding-bottom: 20px;}
+.navi-section{width: 100%;}
+.join-img{width: 100%;}
+/*.join-title{position:absolute;width:330px;height:570px;background-color:#F62F5E;font-size:55px;color:#fff;text-align:center;right:-210px;top:150px;}
+.join-title span{display:block;padding-top:160px;font-weight:100;line-height:65px;}*/
+.design-section{margin-top:190px;}
+.design-section h1{padding-left: 20px;font-size:36px;margin-bottom:24px;color:#333;font-weight:normal;}
+.design-info{width:30%;padding-top:54px;padding-left: 20px;}
+.design-img{width:65%;height:480px;}
+.design-info h2,.design-info2 h2{font-size:14px;color:#333;font-weight:normal;line-height:22px;}
+.design-info p,.design-info2 p{color:#999;line-height:22px;text-align:justify;}
+.p1{margin-bottom:25px;}
+.p2,.p3,.p4{margin-top:25px;}
+.design-img2{width:55%;}
+.design-info2{width:40%;padding:0 15px;}
+.design-info2 h1{font-size:36px;margin-bottom:78px;color:#333;font-weight:normal;}
+.left-top-img{width:40%;padding-top:90px;}
+.left-btm-img{width:60%;padding-top:144px;}
+/***Work environment Part***/
+.envi-section{min-width:800px;margin-top:176px;margin-bottom:140px;}
+.envi-section h1{font-size:36px;color:#333;font-weight:normal;text-align:center;margin-bottom:90px;}
+.envi-slide{width:100%;height:692px;}
+
+.demo {width:100%;height:692px;font-size: 14px;position:relative;margin:0 auto;overflow:hidden;}
+.demo a.control {position:absolute;display: block;top: 50%;margin-top:-50px;width:100px;height:100px;cursor: pointer;z-index: 2;}
+.demo a.prev {left:30px;background:url(../img/arrow_left.png) no-repeat left top;}
+.demo a.next {right:30px;background:url(../img/arrow_right.png) no-repeat right top;}
+
+/**
+ * Footer Style
+ */
+.footer{min-width:800px;height:315px;background-color:#f7f7f7;padding-top:140px;}
+.left-ft-part{padding-top:35px;}
+.left-ft-part p{color:#666;margin-bottom:25px;}
+.right-ft-part{text-align:center;}
+.right-ft-part p{color:#666;margin-top:28px;}
+
+/**
+ * Download App Style
+ */
+.pop_bg{position: fixed;width: 100%;height: 100%;background: rgba(0,0,0,0.4);z-index: 99;top: 0;left: 0;display: none;}
+.pop_con{width: 590px;height: 304px;background: #fff;position: absolute;top: 25%;left: 50%;margin-left: -295px;z-index: 2;}
+.pop_con h3{font-size: 22px;color: #333;text-align: center;line-height: 115px;font-weight: 500;}
+.pop_con .pop_close{display: block;width: 30px;height: 30px;background: url("../img/pop_close.png") center no-repeat;position: absolute;right: 15px;top: 15px;}
+.pop_con .fl{width: 280px;margin: 0 0 0 57px;border-right: 1px solid #ddd;height: 140px;}
+.pop_con .fl a:hover{text-decoration:none;}
+.pop_con .btn_download{display: block;width: 130px;padding-left:75px;height: 58px;line-height:58px;background: url("../img/i_bg.png") 15px center no-repeat #ff3366;border-radius: 3px;color: #fff;font-size: 16px;margin-bottom: 20px;}
+.pop_bg_android .btn_download{margin-top: 30px;}
+.pop_con .btn_download:hover{background-color: #f85a82;}
+.pop_con .btn_appstore{display: block;width: 145px;padding-left:65px;height: 58px;line-height:58px;background: url("../img/i_bg2.png") left center no-repeat #333;border-radius: 3px;color: #fff;font-size: 16px;margin-top:30px;}
+.pop_con .btn_appstore:hover{background-color: #444;}
+.pop_con .warp_code{float: right;margin-right: 70px;width: 130px;text-align: center;font-size: 16px;}
+.pop_con .warp_code img{width: 110px;height: 110px;}
+.cle:after {
+	content: ".";
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden
+}
+
+
+.footer-center{width: 80%;margin: 0 auto;}
+/*导航栏*/
+#head-fix{
+	position: fixed;
+	width: 100%;
+	top:0px;
+	left:0px;
+	z-index:600;
+	
+	
+	margin-top:0px;
+}
+

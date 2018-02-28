@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>个人信息</title>
+  <meta name="referrer" content="never">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/user.css">
+  <link rel="stylesheet" href="../css/join-step.css">
+</head>
+<body>
+
+<link rel="import" href="../components/header.html?__inline">
+
+<!--<div class="tx-box">
+  <ul class="tx-nvaBar">
+    <li>您现在的位置：</li>
+    <li onclick="window.history.go(-1)">招商加盟&nbsp;&nbsp;&gt;&nbsp;&nbsp;</li>
+    <li>个人信息</li>
+  </ul>
+</div>-->
+
+<div class="tx-box" id="join-step-app" style="position: relative;margin-top: 110px;">
+  <ul class="user-menu">
+    <li onclick="window.location.href = 'user-info.html'">个人信息</li>
+    <li class="active" id="go-joinStep">加盟流程</li>
+  </ul>
+
+  <div class="user-box">
+    <ul class="step-box">
+      <li>
+        <i class="icon"></i>
+        <div class="text">
+          <h6>第一步</h6>
+          <h5>提交申请</h5>
+        </div>
+      </li>
+      <li>
+        <i class="icon"></i>
+        <div class="text">
+          <h6>第二步</h6>
+          <h5>支付费用</h5>
+        </div>
+      </li>
+      <li>
+        <i class="icon"></i>
+        <div class="text">
+          <h6>第三步</h6>
+          <h5>资料审核</h5>
+        </div>
+      </li>
+      <li class="active">
+        <i class="icon"></i>
+        <div class="text">
+          <h6>第四步</h6>
+          <h5>达成合作</h5>
+        </div>
+      </li>
+    </ul>
+    <div class="content certificate">
+      <label class="watermark" v-text="stepData.updateTime2"></label>
+      <label class="watermark" v-text="stepData.updateTime2"></label>
+      <label class="watermark" v-text="stepData.updateTime2"></label>
+      <label class="watermark" v-text="stepData.updateTime2"></label>
+      <label class="watermark" v-text="stepData.updateTime2"></label>
+      <label class="watermark" v-text="stepData.updateTime2"></label>
+      <!--<label class="watermark" v-text="stepData.updateTime2"></label>-->
+      <!--<label class="watermark" v-text="stepData.updateTime2"></label>-->
+      <p class="username" v-text="stepData.realName"></p>
+      <p class="time">授权时间：<span v-text="stepData.updateTimeZn"></span></p>
+      <p class="data">
+        签发方：上海顶顺线艺电子商务有限公司
+        <br>有效期：<span v-text="stepData.updateTime"></span>至<span v-text="stepData.updateTimeEnd"></span>
+      </p>
+      <p class="number">证书编号:<span v-text="stepData.certificateNo"></span></p>
+    </div>
+  </div>
+</div>
+
+<link rel="import" href="../components/footer.html?__inline">
+
+<script type="text/javascript" src="../js/main.js"></script>
+<link rel="import" href="../components/script.html?__inline">
+<script type="text/javascript" src="../lib/js/vue.min.js"></script>
+<script type="text/javascript" src="../lib/js/dateformat.js"></script>
+<script>
+
+  TxMain.init.joinStep()
+    .then(function () {
+      new Vue({
+        el: '#join-step-app',
+        data: {
+          stepData: {}
+        },
+        created: function () {
+          TxMain.event.checkJoinStep();
+          var step = store.get('tx-join-step')
+            , year = 60 * 60 * 24 * 364 * 1000;
+          if (_.isEmpty(step)) {
+            return false;
+          }
+
+          step.updateTime = DateFormat.format(new Date(step.certigierCheckLogList[0].createTime), 'yyyy.MM.dd');
+          step.updateTime2 = DateFormat.format(new Date(step.certigierCheckLogList[0].createTime), 'yyyy.MM.dd hh:mm:ss');
+          step.updateTimeEnd = DateFormat.format(new Date(step.certigierCheckLogList[0].createTime + year), 'yyyy.MM.dd');
+          step.updateTimeZn = DateFormat.format(new Date(step.certigierCheckLogList[0].createTime), 'yyyy年MM月dd日');
+
+          this.stepData = step;
+        },
+        methods: {
+          goStepFirst: function () {
+            window.location.href = '../view/join-stop-1.html';
+          }
+        }
+      });
+    });
+
+  $('.user-form-item .user-input').on('focus', function () {
+    $(this).parents('.user-form-item').addClass('input-focus');
+  }).on('focusout', function () {
+    if (!$(this).val()) {
+      $(this).parents('.user-form-item').removeClass('input-focus');
+    }
+  });
+</script>
+</body>
+</html>

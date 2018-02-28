@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>时尚资讯</title>
+  <meta name="referrer" content="never">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+  <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/main-depot.css">
+</head>
+<body>
+<header class="tx-header">
+  <div class="header-box tx-box">
+    <div class="logo">
+      <i></i>
+      <img src="../img/index-tailorx.png">
+    </div>
+
+    <ul class="menu">
+      <li>
+        <div class="title" onclick="window.location.href = '/index.html'">首页</div>
+      </li>
+      <li class="has-menu store">
+        <div class="title" onclick="window.location.href = '/view/store-list.html'">门店介绍</div>
+        <div class="child-menu">
+          <ul>
+            <li onclick="window.location.href = '/view/store-list.html'">全部</li>
+          </ul>
+        </div>
+      </li>
+      <li>
+        <div class="title" onclick="window.location.href = '/view/main-depot.html'">时尚资讯</div>
+      </li>
+      <li>
+        <div class="title" onclick="window.location.href = '/view/join.html'">招商加盟</div>
+      </li>
+      <li>
+        <div class="title" onclick="window.location.href = '/view/recruit.html'">诚聘英才</div>
+      </li>
+    </ul>
+
+    <div class="login tx-hide">
+      <div class="no-user">
+        <h4>登录</h4>
+        <h3>注册</h3>
+      </div>
+      <div class="user">
+        <div class="user-img" onclick="window.location.href = '/view/user-info.html'"></div>
+        <h5 onclick="window.location.href = '/view/user-info.html'" class="user-name"></h5>
+        <h4 onclick="TxMain.event.logout()">退出</h4>
+        <!--<ul class="user-nav">
+          <li onclick="window.location.href = '/view/user-info.html'">个人信息</li>
+          <li onclick="TxMain.event.logout()">退出登录</li>
+        </ul>-->
+      </div>
+    </div>
+  </div>
+</header>
+
+
+<div id="md-app" style="min-height: 800px">
+
+  <div class="search-box tx-box" :class="{show:searchTypeList.length}">
+    <div class="selected">
+      <label>所选标签 > </label>
+      <ul>
+        <li v-if="!selectedType.genderId.tagName &&
+        !selectedType.typeId.tagName &&
+        !selectedType.seasonId.tagName &&
+        !selectedType.styleIds.length">全部
+        </li>
+        <li v-for="(item,index) in selectedType" v-if="item.tagName">
+          <span v-text="item.tagName"></span><label @click="clickSearch(index,item)"></label></li>
+        <li v-for="item in selectedType.styleIds" v-if="item.tagName">
+          <span v-text="item.tagName"></span><label @click="clickSearch(4,item)"></label></li>
+      </ul>
+    </div>
+    <div class="type-box">
+      <ul>
+        <li>性别：</li>
+        <li v-for="item in searchTypeList"
+            v-if="item.tagType === 1"
+            v-text="item.tagName"
+            :class="{active:listType.genderId === item.tagId}"
+            @click="clickSearch(1,item)"></li>
+      </ul>
+      <ul>
+        <li>款式：</li>
+        <li v-for="item in searchTypeList"
+            v-if="item.tagType === 2"
+            v-text="item.tagName"
+            :class="{active:listType.typeId === item.tagId}"
+            @click="clickSearch(2,item)"></li>
+      </ul>
+      <ul>
+        <li>适用季节：</li>
+        <li v-for="item in searchTypeList"
+            v-if="item.tagType === 3"
+            v-text="item.tagName"
+            :class="{active:listType.seasonId === item.tagId}"
+            @click="clickSearch(3,item)"></li>
+      </ul>
+      <ul>
+        <li>偏好风格：</li>
+        <li v-for="item in searchTypeList"
+            v-if="item.tagType === 4"
+            v-text="item.tagName"
+            :class="{active:checkStyle(item.tagId)}"
+            @click="clickSearch(4,item)"></li>
+      </ul>
+    </div>
+  </div>
+
+
+  <section class="container" :class="{active:showType}">
+    <ul id="content-list">
+    </ul>
+    <div style="text-align: center;padding: 250px 0" v-show="notData && listType.page === 0">
+      <img src="../img/mdd-nothing.png" style="width: 100px;margin-bottom: 30px">
+      <p style="width: 100%;text-align: center;color: #999">～无相关筛选内容～</p>
+    </div>
+
+    <div class="shade-box" v-show="!notData">
+      <div class="tx-loading"></div>
+    </div>
+    <p style="width: 100%;text-align: center;color: #999" v-show="notData && listType.page !== 0">～我也是有底线的～</p>
+  </section>
+
+  <img class="stick-top" :class="{show:showStickTop}" @click="goStickTop" src="../img/md-stick_top.png">
+
+
+  <!--弹窗-->
+</div>
+
+<div style="height: 320px;position: relative">
+  <footer class="tx-footer">
+    <div class="bottom">
+      <div class="tx-box">
+        <h6>Copyright © 2015-2017 ICP备16040571号-1&nbsp;&nbsp;&nbsp;&nbsp;上海顶顺线艺电子商务有限公司 版权所有<br>
+          赤乌软件(C5NET.CN)提供技术支持</h6>
+
+        <div class="qrcode">
+          <img src="../img/qr_code.png">
+          <h4>TailorX手机客户端</h4>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
+
+
+
+<script type="text/javascript" src="../js/main.js"></script>
+<script type="text/javascript">
+  var _hmt = _hmt || [];
+  (function () {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?5a9341a0f2cc7b49dff1b89a8c8e54c3";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+
+</script>
+<script src='//kefu.easemob.com/webim/easemob.js'></script>
+<script type="text/javascript">
+  (function () {
+    var html = $('<div class="tx-fixed-nav customer-service" id="tx-customer-service"><ul><li>联系客服<i style=" background-image: url(../img/ic_nav_customer_service.png)"></i></li></ul></div>');
+
+    var user = store.get('tx-user') || {};
+    window.easemobim = window.easemobim || {};
+    easemobim.config = {
+      hide: true, // 隐藏自带按钮
+      autoConnect: true,
+      visitor: {                   //为必须设置。名字和联系方式               昵称-手机号-user_id        （user_id 写在 description里面）
+        trueName: '',
+        qq: '',
+        phone: '',
+        companyName: '',
+        userNickname: '',
+        description: '',
+        email: ''
+      }
+    };
+
+    html.on('click', function () {
+      easemobim.bind({configId: 'cbe22b74-e46c-4348-9ac8-12c605fa0366'});
+    });
+    $('body').append(html);
+  })();
+</script>
+
+<script type="text/javascript" src="../lib/js/masonry.pkgd.min.js"></script>
+<script type="text/javascript" src="../lib/js/imagesloaded.pkgd.min.js"></script>
+<script type="text/javascript" src="../lib/js/store.legacy.min.js"></script>
+<script type="text/javascript" src="../lib/js/vue.min.js"></script>
+<script type="text/javascript">
+
+  TxMain.init.headerTo(3);
+  new Vue({
+    el: '#md-app',
+    data: {
+      isLoading: false,
+      notData: false,
+      list: [],
+      showType: true,
+      showStickTop: false,
+      isFirst: true,
+      selectedType: {
+        seasonId: '',
+        genderId: '',
+        typeId: '',
+        styleIds: []
+      },
+      searchTypeList: [],
+      listType: {
+        seasonId: '',
+        genderId: '',
+        typeId: '',
+        styleIds: [],
+        page: 0,
+        pageLength: 30
+      },
+      masonryBox: null
+    },
+    created: function () {
+      var _this = this;
+
+      store.set('list-data', []);
+      this.getSearchType();
+      this.getList();
+
+      // 监听滚动加载
+      $(window).scroll(function () {
+        var wH = $(this).height()
+          , sH = $(this).scrollTop()
+          , lH = $('.shade-box').offset().top;
+
+        _this.showStickTop = sH > 500;
+
+        if (sH > 118) {
+          _this.showType = false;
+        }
+
+        if (_this.masonryBox && _this.masonryBox.find('.item').length && !_this.isLoading && (wH + sH) > (lH * 0.5)) {
+          _this.listType.page++;
+          _this.getList();
+        }
+      });
+
+      $(window).resize(function () {
+        _this.showType = false;
+      });
+    },
+    watch: {},
+    methods: {
+      initList: function () {// 初始化瀑布流数据
+        var _this = this;
+        _this.masonryBox = $('#content-list');
+        !_this.isFirst && _this.masonryBox.masonry('destroy');
+        _this.masonryBox.imagesLoaded(function () {
+          _this.masonryBox.masonry({
+            itemSelector: '.item',
+            gutter: 10,
+            isAnimated: true
+          });
+          _this.masonryBox.masonry('layout');
+          _this.isLoading = false;
+        });
+        _this.isLoading = false;
+      },
+      getList: function () {
+        var _this = this
+          , new_listType = _.clone(this.listType);
+        if (this.notData) {
+          return;
+        }
+        this.isLoading = true;
+        new_listType.styleIds = JSON.stringify(new_listType.styleIds);
+        return $.post(TxConfig.env.headUrl + '/web/getInfoTagList', new_listType).then(function (res) {
+          var listData = store.get('list-data') || [];
+          res = JSON.parse(res);
+
+          if (res.code === '200') {
+            res = res.data;
+            if (res.data.length < _this.listType.pageLength) {
+              _this.notData = true;
+            }
+            if (_this.listType.page === 0) {
+              _this.initList();
+            }
+            if ($.isEmptyObject(res.data)) {
+              store.set('list-data', []);
+              _this.listType.page = _this.listType.page !== 0 ? _this.listType.page - 1 : 0;
+              return;
+            }
+            var htmlEl = '';
+
+            store.set('list-data', listData.concat(res.data));
+            _.map(res.data, function (val) {
+              htmlEl += '<li class="item hide" onclick="window.location.href = \'main-depot-detail.html?id=' + val.id + '\'">' +
+                '<img src="' + $.ossImage(val.imgUrl, 'resize,w_260') + '" class="big-img">' +
+                '<p>' + val.description + '</p>' +
+                '<div class="head-img" style="background-image: url(' + (val.designerPhoto ? $.ossImage(val.designerPhoto, 'resize,w_36') : '../img/custom.png') + ')"></div>' +
+                '<div class="head-info">' +
+                '<p><span  style="display: inline-block;vertical-align: middle;margin-right: 10px">' + val.designerName + '</span>' +
+                '<img src="../img/mdd-label.png" style="display: inline-block;vertical-align: middle">                </p>' +
+                '<span>' + val.introduction + '</span>' +
+                '</div></li>';
+            });
+            htmlEl = $(htmlEl);
+
+            var timeout = setTimeout(function () {
+              clearTimeout(timeout);
+              _this.masonryBox.append(htmlEl);
+              _this.masonryBox.imagesLoaded(function () {
+                $('.item.hide').removeClass('hide');
+                _this.masonryBox.masonry('appended', htmlEl, true);
+                _this.isLoading = false;
+                _this.masonryBox.masonry('layout');
+              });
+            }, 0);
+          }
+
+        });
+      },
+      getSearchType: function () {
+        var _this = this;
+        $.get(TxConfig.env.headUrl + '/web/getSearchTagList').then(function (res) {
+          res = JSON.parse(res);
+          if (res.code === '200') {
+            _this.searchTypeList = res.data;
+            var timeout = setTimeout(function () {
+              _this.showType = false;
+              clearTimeout(timeout);
+            }, 0)
+          }
+        });
+      },
+      clickSearch: function (type, item) {
+        var id = item.tagId;
+
+        switch (type) {
+          case 0:
+            this.listType.genderId = '';
+            this.listType.typeId = '';
+            this.listType.seasonId = '';
+            this.listType.styleIds = [];
+            this.selectedType = {};
+            break;
+          case 1:
+          case  'genderId':
+            this.listType.genderId = this.listType.genderId === id ? '' : id;
+            this.selectedType.genderId = this.selectedType.genderId.tagId === id ? {} : item;
+            break;
+          case 2:
+          case 'typeId':
+            this.listType.typeId = this.listType.typeId === id ? '' : id;
+            this.selectedType.typeId = this.selectedType.typeId.tagId === id ? {} : item;
+            break;
+          case 3:
+          case 'seasonId':
+            this.listType.seasonId = this.listType.seasonId === id ? '' : id;
+            this.selectedType.seasonId = this.selectedType.seasonId.tagId === id ? {} : item;
+            break;
+          case 4:
+//            this.listType.styleIds.push(id);
+            if (this.checkStyle(id)) {
+              this.listType.styleIds = _.filter(this.listType.styleIds, function (val) {
+                return val !== id;
+              });
+              this.selectedType.styleIds = _.filter(this.selectedType.styleIds, function (val) {
+                return val.tagId !== id;
+              });
+            } else {
+              this.listType.styleIds.push(id);
+              this.selectedType.styleIds.push(item);
+            }
+            break;
+        }
+        this.goStickTop();
+        this.listType.page = 0;
+        this.showType = false;
+        this.isFirst = false;
+        this.notData = false;
+        this.masonryBox.empty();
+
+        this.getList();
+      },
+      checkStyle: function (id) {
+        return _.indexOf(this.listType.styleIds, id) > -1;
+      },
+      goStickTop: function () {
+        $(window).scrollTop(0);
+      }
+    }
+
+  });
+
+
+</script>
+</body>
+</html>

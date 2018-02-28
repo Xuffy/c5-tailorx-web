@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>门店介绍</title>
+  <link rel="shortcut icon" href="../favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/store-detail.css">
+  <link rel="stylesheet" href="../lib/style/swiper-3.4.2.min.css">
+</head>
+<body>
+<header class="tx-header">
+  <div class="header-box tx-box">
+    <div class="logo">
+      <i></i>
+      <img src="../img/index-tailorx.png">
+    </div>
+
+    <ul class="menu">
+      <li>
+        <div class="title" onclick="window.location.href = '/index.html'">首页</div>
+      </li>
+      <li class="has-menu store">
+        <div class="title" onclick="window.location.href = '/view/store-list.html'">门店介绍</div>
+        <div class="child-menu">
+          <ul>
+            <li onclick="window.location.href = '/view/store-list.html'">全部</li>
+          </ul>
+        </div>
+      </li>
+      <li>
+        <div class="title" onclick="window.location.href = '/view/main-depot.html'">时尚资讯</div>
+      </li>
+      <li>
+        <div class="title" onclick="window.location.href = '/view/join.html'">招商加盟</div>
+      </li>
+      <li>
+        <div class="title" onclick="window.location.href = '/view/recruit.html'">诚聘英才</div>
+      </li>
+    </ul>
+
+    <div class="login tx-hide">
+      <div class="no-user">
+        <h4>登录</h4>
+        <h3>注册</h3>
+      </div>
+      <div class="user">
+        <div class="user-img" onclick="window.location.href = '/view/user-info.html'"></div>
+        <h5 onclick="window.location.href = '/view/user-info.html'" class="user-name"></h5>
+        <h4 onclick="TxMain.event.logout()">退出</h4>
+        <!--<ul class="user-nav">
+          <li onclick="window.location.href = '/view/user-info.html'">个人信息</li>
+          <li onclick="TxMain.event.logout()">退出登录</li>
+        </ul>-->
+      </div>
+    </div>
+  </div>
+</header>
+
+
+
+<section class="sd-container" id="sd-app">
+  <div class="tx-box">
+    <ul class="path">
+      <li>您现在的位置：</li>
+      <li onclick="window.history.go(-1)" style="cursor: pointer">门店介绍 ></li>
+      <li>门店详情</li>
+    </ul>
+  </div>
+
+  <div class="sd-info">
+    <div class="tx-box">
+      <!--<label class="image"
+             :style="{backgroundImage: 'url(' + ossImg(detail.storeCoverImage,'resize,h_427') + ')'}"></label>-->
+      <label class="image"
+             :style="{backgroundImage: 'url(' + detail.storeCoverImage + ')'}"></label>
+      <ul class="content">
+        <li v-text="detail.storeName"></li>
+        <li class="tag"></li>
+        <li class="text"><span>地址：</span><label v-text="detail.storeAddress"></label></li>
+        <li class="text"><span>门店介绍：</span><label v-text="detail.storeIntroduce"></label>
+        </li>
+        <img src="../img/index-tailorx.png"/>
+      </ul>
+    </div>
+  </div>
+
+  <!--<div class="index-title tx-box" style="margin-bottom: 40px">
+    <img src="../img/designers.png">
+    <h4><span>所属设计师</span></h4>
+  </div>-->
+  <div class="tx-box si-title designers">
+    <hr>
+  </div>
+
+  <div class="tx-box si-swiper sd-designer-swiper">
+    <div class="swiper-container swiper-container-horizontal">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide" v-for="(item,index) in detail.designerProductionList"
+             @click="showDesignerImg(item.designerImgs,index)"
+             :class="{active:showDesignerImgIndex === index}">
+          <!--<label
+            :style="{backgroundImage: 'url(' + item.designerPhoto + ')'}"></label>-->
+          <label
+            :style="{backgroundImage: 'url(' + ossImg(item.designerPhoto,'resize,h_160/circle,r_160') + ')'}"></label>
+          <h3 v-text="item.designerName"></h3>
+          <span v-for="(sItem,sIndex) in splitStr(item.designerStyle,'、')"
+                :style="{'transition-delay':sIndex * 0.1 + 's'}"
+                v-text="sItem"></span>
+        </div>
+      </div>
+    </div>
+    <div class="page-prev" @click="designerSwiper.slidePrev()"></div>
+    <div class="page-next" @click="designerSwiper.slideNext()"></div>
+  </div>
+
+  <div class="tx-box si-title">
+    <hr>
+  </div>
+
+  <ul class="sd-opus tx-box">
+    <li v-for="(item,index) in designerImg" :style="{'transition-delay':index * 0.1 + 's'}"><img
+      :src="item" alt=""></li>
+    <!--<li v-for="(item,index) in designerImg" :style="{'transition-delay':index * 0.1 + 's'}"><img
+      :src="ossImg(item,'resize,h_290')" alt=""></li>-->
+  </ul>
+
+  <!--<div class="index-title tx-box">
+    <img src="../img/store_display.png">
+    <h4><span>门店环境</span></h4>
+  </div>-->
+  <div class="tx-box si-title display">
+    <hr>
+  </div>
+
+  <div class="sd-store-swiper">
+    <div class="swiper-container swiper-container-horizontal">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide" v-for="item in detail.storeEnvironmentList" v-if="item"
+             :style="{backgroundImage: 'url(' + item + ')'}"></div>
+        <!--<div class="swiper-slide" v-for="item in detail.storeEnvironmentList" v-if="item"
+             :style="{backgroundImage: 'url(' + ossImg(item,'resize,h_560') + ')'}"></div>-->
+      </div>
+      <div class="shade-box"></div>
+      <div class="swiper-button">
+        <div class="swiper-button-prev swiper-button-white"></div>
+        <div class="swiper-button-next swiper-button-white"></div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!--footer-->
+
+<div style="height: 320px;position: relative">
+  <footer class="tx-footer">
+    <div class="bottom">
+      <div class="tx-box">
+        <h6>Copyright © 2015-2017 ICP备16040571号-1&nbsp;&nbsp;&nbsp;&nbsp;上海顶顺线艺电子商务有限公司 版权所有<br>
+          赤乌软件(C5NET.CN)提供技术支持</h6>
+
+        <div class="qrcode">
+          <img src="../img/qr_code.png">
+          <h4>TailorX手机客户端</h4>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
+
+
+
+<script type="text/javascript" src="../js/main.js"></script>
+<script type="text/javascript">
+  var _hmt = _hmt || [];
+  (function () {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?5a9341a0f2cc7b49dff1b89a8c8e54c3";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+
+</script>
+<script src='//kefu.easemob.com/webim/easemob.js'></script>
+<script type="text/javascript">
+  (function () {
+    var html = $('<div class="tx-fixed-nav customer-service" id="tx-customer-service"><ul><li>联系客服<i style=" background-image: url(../img/ic_nav_customer_service.png)"></i></li></ul></div>');
+
+    var user = store.get('tx-user') || {};
+    window.easemobim = window.easemobim || {};
+    easemobim.config = {
+      hide: true, // 隐藏自带按钮
+      autoConnect: true,
+      visitor: {                   //为必须设置。名字和联系方式               昵称-手机号-user_id        （user_id 写在 description里面）
+        trueName: '',
+        qq: '',
+        phone: '',
+        companyName: '',
+        userNickname: '',
+        description: '',
+        email: ''
+      }
+    };
+
+    html.on('click', function () {
+      easemobim.bind({configId: 'cbe22b74-e46c-4348-9ac8-12c605fa0366'});
+    });
+    $('body').append(html);
+  })();
+</script>
+
+<script type="text/javascript" src="../lib/js/swiper-3.4.2.jquery.min.js"></script>
+<script type="text/javascript" src="../lib/js/vue.min.js"></script>
+<script type="text/javascript">
+  TxMain.init.headerTo(2);
+  new Vue({
+    el: '#sd-app',
+    data: {
+      detail: {},
+      designerSwiper: null,
+      storeSwiper: null,
+      designerImg: [],
+      showDesignerImgIndex: 0
+    },
+    created: function () {
+      this.getDetail();
+    },
+    methods: {
+      getDetail: function () {
+        var id = $.getUrlParam('id')
+          , _this = this;
+        if (!id) {
+          throw new Error('门店ID获取异常');
+        }
+        $.get(TxConfig.env.headUrl + '/web/getStoreById', {id: id})
+          .then(function (res) {
+            res = JSON.parse(res);
+            if (res.code !== '200') {
+              throw new Error('接口请求异常 - findStoreList');
+            }
+            _this.detail = res.data;
+            _this.showDesignerImg(res.data.designerProductionList[0].designerImgs, 0);
+            setTimeout(function () {
+              _this.initDesignerSwiper();
+              _this.initStoreSwiper();
+            }, 0);
+          });
+      },
+      initDesignerSwiper: function () {
+        this.designerSwiper = new Swiper('.sd-designer-swiper .swiper-container', {
+          slidesPerView: 5,
+          speed: 800,
+          spaceBetween: 10,
+          simulateTouch: false
+        });
+      },
+      initStoreSwiper: function () {
+        this.storeSwiper = new Swiper('.sd-store-swiper .swiper-container', {
+          slidesPerView: 'auto',
+          centeredSlides: true,
+          paginationClickable: true,
+          nextButton: '.swiper-button-next',
+          prevButton: '.swiper-button-prev',
+          loop: true,
+          speed: 800,
+          simulateTouch: false
+        });
+      },
+      splitStr: function (str, type) {
+        if (!str) {
+          return [];
+        }
+        return str.split(type);
+      },
+      showDesignerImg: function (urls, index) {
+        if (index !== 0 && this.showDesignerImgIndex === index) {
+          return false;
+        }
+        $('.sd-opus').removeClass('show');
+
+        this.showDesignerImgIndex = index;
+        if (!urls) {
+          return this.designerImg = [];
+        }
+        this.designerImg = urls.split(',');
+        setTimeout(function () {
+          $('.sd-opus').addClass('show');
+        }, 600);
+      },
+      ossImg: $.ossImage
+    }
+  });
+
+</script>
+</body>
+</html>

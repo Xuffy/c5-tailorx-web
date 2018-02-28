@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TailorX衬衣工艺</title>
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    img {
+      width: 100%;
+    }
+
+    #btn {
+      width: 25%;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      transition: all .8s;
+    }
+
+    #btn.hide {
+      opacity: 0;
+    }
+
+    p.go {
+      position: absolute;
+      top: 0;
+      left: 25%;
+      width: 50%;
+      height: 50px;
+    }
+  </style>
+</head>
+<body>
+<img src="../img/app/gccy.jpg">
+<div style="position: relative;margin-top: -5px">
+  <img src="../img/gccy-4_02-share.png">
+  <p onclick="goUrl()" class="go"></p>
+</div>
+
+
+<script type="text/javascript">
+  window.onscroll = function () {
+    var t = document.documentElement.scrollTop || document.body.scrollTop;  //获取距离页面顶部的距离
+    if ((document.body.clientHeight - window.screen.height - 100) < t) {
+      document.getElementById('btn').setAttribute('class', 'hide');
+    } else {
+      document.getElementById('btn').setAttribute('class', '');
+    }
+  };
+  function goUrl() {
+    window.location.href = 'http://qr32.cn/BAD5qQ';
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>TailorX</title>
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="css/reset.css">
+  <style>
+    .sf-tag h4 {
+      position: absolute;
+      left: 15px;
+      color: rgb(102, 102, 102);
+    }
+
+    .sf-tag ul {
+      box-sizing: border-box;
+      width: 100%;
+      padding-left: 80px;
+    }
+
+    .sf-tag li {
+      display: inline-block;
+      font-size: 12px;
+      border: solid 1px rgb(204, 204, 204);
+      color: rgb(153, 153, 153);
+      padding: 0 10px;
+      margin-right: 10px;
+      margin-bottom: 5px;
+      border-radius: 3px;
+      line-height: 24px;
+    }
+
+    .sf-label {
+      margin: 10px 15px 20px 15px;
+    }
+
+    .sf-label li {
+      font-size: 12px;
+      color: rgb(153, 153, 153);
+      display: inline-block;
+      margin-right: 20px;
+    }
+
+    .sf-img-box {
+      margin-top: 15px;
+    }
+
+    .sf-img-box li {
+      width: 32%;
+      float: left;
+      margin-right: 2%;
+    }
+
+    .sf-img-box li:nth-child(3n) {
+      margin-right: 0;
+    }
+
+    .sf-img-box li img {
+      width: 100%;
+    }
+
+    .tx-share-box {
+      position: fixed;
+      width: 100%;
+      height: 50px;
+      line-height: 50px;
+      background-color: #FFFFFF;
+      z-index: 9999;
+      box-sizing: border-box;
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+
+    .tx-share-box > img {
+      height: 35px;
+      vertical-align: middle;
+    }
+
+    .tx-share-box > ul {
+      display: inline-block;
+      vertical-align: middle;
+      margin-left: 10px;
+      max-width: 53%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .tx-share-box > ul li {
+      line-height: 18px;
+    }
+
+    .tx-share-box > p {
+      position: absolute;
+      right: 15px;
+      top: 10px;
+      line-height: 30px;
+      border: solid 1px #999;
+      padding-left: 10px;
+      padding-right: 10px;
+      border-radius: 3px;
+      background-color: #FFFFFF;
+    }
+    .tx-share-seat{
+      height: 60px;
+    }
+  </style>
+</head>
+<body>
+<div id="sf-app">
+  <div class="tx-share-box">
+    <img src="img/logo2.png">
+    <ul>
+      <li>TAILORX</li>
+      <li style="color: #777777">发现生活，开启你的定制之旅</li>
+    </ul>
+    <p onclick="window.location.href = 'http://qr32.cn/BAD5qQ'">立即打开</p>
+  </div>
+  <div class="tx-share-seat"></div>
+
+  <img style="width: 100%" v-bind:src="detail.imgUrl"/>
+  <h3 style="font-size: 16px;font-weight: bold;padding:15px" v-text="detail.description"></h3>
+  <div class="sf-tag" v-if="detail.tagsCommon&&detail.tagsCommon.length">
+    <h4>时尚标签</h4>
+    <ul>
+      <li v-for="item in detail.tagsCommon" v-text="item.tagName"></li>
+    </ul>
+  </div>
+
+  <ul class="sf-label">
+    <li v-text="detail.new_time"></li>
+    <li><img style="width: 20px;vertical-align: middle;margin-right: 7px;" src="img/ic_main_share_big.png"><span
+      v-text="detail.shareCount"></span></li>
+    <li><img style="width: 20px;vertical-align: middle;margin-right: 7px;" src="img/ic_main_like_big.png"><span
+      v-text="detail.favoriteCount"></span></li>
+  </ul>
+
+  <!--<div style="width: 100%;box-sizing: border-box;padding-left: 70px;padding-right: 15px;margin: 20px 0 60px 0">
+    &lt;!&ndash;<img v-bind:src="detail.designerPhoto"
+         style="width: 40px;height: 40px;position: absolute;left: 15px;border-radius: 50%">&ndash;&gt;
+    &lt;!&ndash;<p>
+      <label v-text="detail.designerName" style="color: rgb(102,102,102);margin-right: 5px"></label>
+      <img src="img/mdd-label.png" style="height: 16px;vertical-align: middle">
+    </p>&ndash;&gt;
+    &lt;!&ndash;<h4 v-text="detail.designerIntroduction"
+        style="font-size: 12px;color: rgb(153,153,153);margin-top: 5px;line-height: 16px"></h4>
+    <ul class="sf-img-box">
+      <li v-for="item in detail.new_pictures"><img v-bind:src="item"></li>
+      <li style="clear: both;float: inherit"></li>
+    </ul>&ndash;&gt;
+  </div>-->
+
+  <!--<div onclick="window.location.href = 'http://qr32.cn/BAD5qQ'"
+    style="width: 100%;position: fixed;line-height: 50px;background-color: rgb(255,51,102);text-align: center;bottom: 0;color: #FFFFFF;font-size: 16px">
+    立即下载TailorX
+  </div>-->
+</div>
+
+
+<script type="text/javascript" src="js/config.js"></script>
+<script type="text/javascript" src="lib/js/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="lib/js/imagesloaded.pkgd.min.js"></script>
+<script type="text/javascript" src="lib/js/underscore-min.js"></script>
+<script type="text/javascript" src="lib/js/vue.min.js"></script>
+<script type="text/javascript">
+
+  new Vue({
+    el: '#sf-app',
+    data: {
+      detail: {}
+    },
+    created: function () {
+      this.getDetail();
+    },
+    methods: {
+      getDetail: function () {
+        var _this = this;
+        $.post(TxConfig.env.headUrl + '/v3/app/picture/findPictureDetail', {pictureId: getUrlParam('id')})
+          .then(function (res) {
+            res = JSON.parse(res);
+
+            if (res.code === '200') {
+              res = res.data;
+              if (res.productionPictures) {
+                res.new_pictures = res.productionPictures.split(',');
+              }
+              res.new_time = _this.formatMsgTime(res.publishTime);
+              _this.detail = res;
+            }
+          });
+      },
+      formatMsgTime: function (timespan) {
+
+        var dateTime = new Date(timespan);
+
+        var year = dateTime.getFullYear();
+        var month = dateTime.getMonth() + 1;
+        var day = dateTime.getDate();
+        var hour = dateTime.getHours();
+        var minute = dateTime.getMinutes();
+        var second = dateTime.getSeconds();
+        var now = new Date();
+        var now_new = Date.parse(now.toDateString());  //typescript转换写法
+
+        var milliseconds = 0;
+        var timeSpanStr;
+
+        milliseconds = now_new - timespan;
+
+        if (milliseconds <= 1000 * 60 * 1) {
+          timeSpanStr = '刚刚';
+        }
+        else if (1000 * 60 * 1 < milliseconds && milliseconds <= 1000 * 60 * 60) {
+          timeSpanStr = Math.round((milliseconds / (1000 * 60))) + '分钟前';
+        }
+        else if (1000 * 60 * 60 * 1 < milliseconds && milliseconds <= 1000 * 60 * 60 * 24) {
+          timeSpanStr = Math.round(milliseconds / (1000 * 60 * 60)) + '小时前';
+        }
+        else if (1000 * 60 * 60 * 24 < milliseconds && milliseconds <= 1000 * 60 * 60 * 24 * 15) {
+          timeSpanStr = Math.round(milliseconds / (1000 * 60 * 60 * 24)) + '天前';
+        }
+        else if (milliseconds > 1000 * 60 * 60 * 24 * 15 && year == now.getFullYear()) {
+          timeSpanStr = month + '-' + day + ' ' + hour + ':' + minute;
+        } else {
+          timeSpanStr = year + '-' + month + '-' + day + ' ' + hour + ':' + minute;
+        }
+        return timeSpanStr;
+      }
+
+    }
+
+  });
+</script>
+</body>
+</html>

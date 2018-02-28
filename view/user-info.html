@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>个人信息</title>
+  <meta name="referrer" content="never">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/user.css">
+  <link rel="stylesheet" href="../css/user-info.css">
+</head>
+<body>
+
+<link rel="import" href="../components/header.html?__inline">
+
+<!--<div class="tx-box">
+  <ul class="tx-nvaBar">
+    <li>您现在的位置：</li>
+    <li onclick="window.history.go(-1)">招商加盟&nbsp;&nbsp;&gt;&nbsp;&nbsp;</li>
+    <li>个人信息</li>
+  </ul>
+</div>-->
+
+<div id="user-info-app" class="tx-box" style="position: relative;    margin-top: 110px;">
+  <span style="display: none" v-text="updatePageNum"></span>
+  <ul class="user-menu">
+    <li onclick="window.location.href = 'user-info.html'" class="active">个人信息</li>
+    <li id="go-joinStep">加盟流程</li>
+  </ul>
+
+  <div class="user-box">
+    <div class="content">
+      <div class="user-form-item user-upload">
+        <div class="image"><img :src="headerImage"></div>
+        <span class="title">编辑头像</span>
+        <input type="file" id="image-upload" multiple @change="imageUpload($event)">
+      </div>
+      <div class="user-form-item">
+        <label class="title" v-text="userInfo.phone">联系方式</label>
+      </div>
+      <div class="user-form-item" :class="{'input-focus':userInfo.realName}">
+        <label class="title">请填写真实姓名</label>
+        <input type="text" class="user-input" v-model="userInfo.realName"/>
+      </div>
+      <div class="user-form-item inline-block "
+           :class="{'input-focus': selectedProvince,'show-option':showProvince}"
+           style="width: 290px;margin-right: 15px">
+        <label class="title">所在省级</label>
+        <div class="user-select">
+          <span class="value" v-text="selectedProvince" @click="showProvince = !showProvince"></span>
+          <i class="icon"></i>
+          <ul class="option-list">
+            <li v-for="item in area" v-text="item" @click="selectedProvince=item"></li>
+          </ul>
+        </div>
+      </div>
+      <div class="user-form-item inline-block"
+           :class="{'input-focus': selectedCity,'show-option':showCity}"
+           @click="showCity = selectedProvince ? !showCity : ''" style="width: 290px">
+        <label class="title">所在城市</label>
+        <div class="user-select">
+          <span class="value" v-text="selectedCity"></span>
+          <i class="icon"></i>
+          <ul class="option-list">
+            <li v-for="item in _.keys(TxArea[selectedProvince])" v-text="item" @click="selectedCity=item"></li>
+          </ul>
+        </div>
+      </div>
+      <div class="user-form-item" :class="{'input-focus':userInfo.email}">
+        <label class="title">电子邮箱</label>
+        <input type="text" class="user-input" v-model="userInfo.email"/>
+      </div>
+      <div class="user-btn" @click="submitUserInfo">保存</div>
+    </div>
+  </div>
+</div>
+
+<link rel="import" href="../components/footer.html?__inline">
+
+
+<script type="text/javascript" src="../js/main.js"></script>
+<link rel="import" href="../components/script.html?__inline">
+<script type="text/javascript" src="../lib/js/area.js"></script>
+<script type="text/javascript" src="../lib/js/uploadFile.js"></script>
+<script type="text/javascript" src="../lib/js/vue.min.js"></script>
+<script type="text/javascript" src="../lib/layer/layer.js"></script>
+
+<script>
+  new Vue({
+    el: '#user-info-app',
+    data: {
+      updatePageNum: 0,
+      area: [],
+      TxArea: TxArea,
+      showProvince: false,
+      showCity: false,
+      selectedProvince: '',
+      selectedCity: '',
+      headerImage: '',
+      userInfo: {},
+      isFirst: true
+    },
+    created: function () {
+      this.area = _.keys(TxArea);
+      this.getCustomerInfo();
+
+    },
+    watch: {
+      selectedProvince: function () {
+        this.selectedCity = this.isFirst ? this.selectedCity : '';
+        this.showProvince = false;
+        this.showCity = false;
+        this.isFirst = false;
+      }
+    },
+    methods: {
+      imageUpload: function (e) {
+        var _this = this;
+        uploadImg({
+          ele: e.currentTarget,
+          type: 1,
+          num: 1,
+          format: ["jpg", "png"],
+          callback: function (res) {
+            _this.headerImage = res.data;
+          }
+        });
+      },
+      getCustomerInfo: function () {
+        var _this = this;
+        $.http.get({
+          url: '/v3/web/user/getCustomerInfo'
+        }).then(function (res) {
+          store.set('tx-user', res.data);
+          _this.userInfo = res.data;
+          _this.selectedProvince = res.data.province;
+          _this.selectedCity = res.data.city;
+          _this.headerImage = res.data.photo;
+
+
+        });
+      },
+      submitUserInfo: function () {
+        var _this = this;
+        _this.userInfo.province = _this.selectedProvince;
+        _this.userInfo.city = _this.selectedCity;
+        _this.userInfo.photo = _this.headerImage;
+        $.http.post({
+          url: '/v3/web/user/updateCustomerInfo',
+          data: _this.userInfo
+        }).then(function (res) {
+          if(res.code === '100031'){
+            _this.getCustomerInfo();
+            return layer.msg('一天只能更改一次头像');
+          }
+          history.go(0);
+        });
+      }
+    }
+  });
+
+
+  $('.user-form-item .user-input').on('focus', function () {
+    $(this).parents('.user-form-item').addClass('input-focus');
+  }).on('focusout', function () {
+    if (!$(this).val()) {
+      $(this).parents('.user-form-item').removeClass('input-focus');
+    }
+  });
+
+  /*$('body').on('click', function () {
+   $('.user-form-item').removeClass('show-option');
+   });
+
+   $('.user-form-item .user-select').on('click', function (event) {
+   event.stopPropagation();
+   $(this).parents('.user-form-item').toggleClass('show-option');
+   });*/
+</script>
+</body>
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>门店介绍</title>
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/store-detail.css">
+  <link rel="stylesheet" href="../lib/style/swiper-3.4.2.min.css">
+</head>
+<body>
+<link rel="import" href="../components/header.html?__inline">
+
+
+<section class="sd-container" id="sd-app">
+  <div class="tx-box">
+    <ul class="path">
+      <li>您现在的位置：</li>
+      <li onclick="window.history.go(-1)" style="cursor: pointer">门店介绍 ></li>
+      <li>门店详情</li>
+    </ul>
+  </div>
+
+  <div class="sd-info">
+    <div class="tx-box">
+      <!--<label class="image"
+             :style="{backgroundImage: 'url(' + ossImg(detail.storeCoverImage,'resize,h_427') + ')'}"></label>-->
+      <label class="image"
+             :style="{backgroundImage: 'url(' + detail.storeCoverImage + ')'}"></label>
+      <ul class="content">
+        <li v-text="detail.storeName"></li>
+        <li class="tag"></li>
+        <li class="text"><span>地址：</span><label v-text="detail.storeAddress"></label></li>
+        <li class="text"><span>门店介绍：</span><label v-text="detail.storeIntroduce"></label>
+        </li>
+        <img src="../img/index-tailorx.png"/>
+      </ul>
+    </div>
+  </div>
+
+  <!--<div class="index-title tx-box" style="margin-bottom: 40px">
+    <img src="../img/designers.png">
+    <h4><span>所属设计师</span></h4>
+  </div>-->
+  <div class="tx-box si-title designers">
+    <hr>
+  </div>
+
+  <div class="tx-box si-swiper sd-designer-swiper">
+    <div class="swiper-container swiper-container-horizontal">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide" v-for="(item,index) in detail.designerProductionList"
+             @click="showDesignerImg(item.designerImgs,index)"
+             :class="{active:showDesignerImgIndex === index}">
+          <!--<label
+            :style="{backgroundImage: 'url(' + item.designerPhoto + ')'}"></label>-->
+          <label
+            :style="{backgroundImage: 'url(' + ossImg(item.designerPhoto,'resize,h_160/circle,r_160') + ')'}"></label>
+          <h3 v-text="item.designerName"></h3>
+          <span v-for="(sItem,sIndex) in splitStr(item.designerStyle,'、')"
+                :style="{'transition-delay':sIndex * 0.1 + 's'}"
+                v-text="sItem"></span>
+        </div>
+      </div>
+    </div>
+    <div class="page-prev" @click="designerSwiper.slidePrev()"></div>
+    <div class="page-next" @click="designerSwiper.slideNext()"></div>
+  </div>
+
+  <div class="tx-box si-title">
+    <hr>
+  </div>
+
+  <ul class="sd-opus tx-box">
+    <li v-for="(item,index) in designerImg" :style="{'transition-delay':index * 0.1 + 's'}"><img
+      :src="item" alt=""></li>
+    <!--<li v-for="(item,index) in designerImg" :style="{'transition-delay':index * 0.1 + 's'}"><img
+      :src="ossImg(item,'resize,h_290')" alt=""></li>-->
+  </ul>
+
+  <!--<div class="index-title tx-box">
+    <img src="../img/store_display.png">
+    <h4><span>门店环境</span></h4>
+  </div>-->
+  <div class="tx-box si-title display">
+    <hr>
+  </div>
+
+  <div class="sd-store-swiper">
+    <div class="swiper-container swiper-container-horizontal">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide" v-for="item in detail.storeEnvironmentList" v-if="item"
+             :style="{backgroundImage: 'url(' + item + ')'}"></div>
+        <!--<div class="swiper-slide" v-for="item in detail.storeEnvironmentList" v-if="item"
+             :style="{backgroundImage: 'url(' + ossImg(item,'resize,h_560') + ')'}"></div>-->
+      </div>
+      <div class="shade-box"></div>
+      <div class="swiper-button">
+        <div class="swiper-button-prev swiper-button-white"></div>
+        <div class="swiper-button-next swiper-button-white"></div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!--footer-->
+
+<link rel="import" href="../components/footer.html?__inline">
+
+
+<script type="text/javascript" src="../js/main.js"></script>
+<link rel="import" href="../components/script.html?__inline">
+<script type="text/javascript" src="../lib/js/swiper-3.4.2.jquery.min.js"></script>
+<script type="text/javascript" src="../lib/js/vue.min.js"></script>
+<script type="text/javascript">
+  TxMain.init.headerTo(2);
+  new Vue({
+    el: '#sd-app',
+    data: {
+      detail: {},
+      designerSwiper: null,
+      storeSwiper: null,
+      designerImg: [],
+      showDesignerImgIndex: 0
+    },
+    created: function () {
+      this.getDetail();
+    },
+    methods: {
+      getDetail: function () {
+        var id = $.getUrlParam('id')
+          , _this = this;
+        if (!id) {
+          throw new Error('门店ID获取异常');
+        }
+        $.get(TxConfig.env.headUrl + '/web/getStoreById', {id: id})
+          .then(function (res) {
+            res = JSON.parse(res);
+            if (res.code !== '200') {
+              throw new Error('接口请求异常 - findStoreList');
+            }
+            _this.detail = res.data;
+            _this.showDesignerImg(res.data.designerProductionList[0].designerImgs, 0);
+            setTimeout(function () {
+              _this.initDesignerSwiper();
+              _this.initStoreSwiper();
+            }, 0);
+          });
+      },
+      initDesignerSwiper: function () {
+        this.designerSwiper = new Swiper('.sd-designer-swiper .swiper-container', {
+          slidesPerView: 5,
+          speed: 800,
+          spaceBetween: 10,
+          simulateTouch: false
+        });
+      },
+      initStoreSwiper: function () {
+        this.storeSwiper = new Swiper('.sd-store-swiper .swiper-container', {
+          slidesPerView: 'auto',
+          centeredSlides: true,
+          paginationClickable: true,
+          nextButton: '.swiper-button-next',
+          prevButton: '.swiper-button-prev',
+          loop: true,
+          speed: 800,
+          simulateTouch: false
+        });
+      },
+      splitStr: function (str, type) {
+        if (!str) {
+          return [];
+        }
+        return str.split(type);
+      },
+      showDesignerImg: function (urls, index) {
+        if (index !== 0 && this.showDesignerImgIndex === index) {
+          return false;
+        }
+        $('.sd-opus').removeClass('show');
+
+        this.showDesignerImgIndex = index;
+        if (!urls) {
+          return this.designerImg = [];
+        }
+        this.designerImg = urls.split(',');
+        setTimeout(function () {
+          $('.sd-opus').addClass('show');
+        }, 600);
+      },
+      ossImg: $.ossImage
+    }
+  });
+
+</script>
+</body>
+</html>

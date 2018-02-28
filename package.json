@@ -1,0 +1,29 @@
+{
+  "name": "c5-TailorX-web",
+  "version": "1.0.0",
+  "author": "d.xuffy",
+  "description": "c5-TailorX-web",
+  "main": "fis-conf.js",
+  "homepage": "https://github.com/Xuffy/layui-wms",
+  "bugs": {
+    "url": "https://github.com/Xuffy/layuiwms/issues",
+    "email": "d.xuffy@gamil.com"
+  },
+  "license": "MIT",
+  "scripts": {
+    "start": "fis3 server start --root ./live && fis3 release local -cLw",
+    "stop": "fis3 server stop",
+    "server": "fis3 server start --root ./live",
+    "dev": "fis3 release dev",
+    "test": "fis3 release test",
+    "pro": "fis3 release pro"
+  },
+  "directories": {
+    "src": "./src",
+    "build": "./build"
+  },
+  "dependencies": {
+    "fis3-preprocessor-autoprefixer": "^0.1.1",
+    "fis3-preprocessor-js-require-css": "^0.1.1"
+  }
+}

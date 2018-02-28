@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>个人信息</title>
+  <meta name="referrer" content="never">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="stylesheet" href="../css/main.css">
+  <link rel="stylesheet" href="../css/user.css">
+  <link rel="stylesheet" href="../css/join-step.css">
+</head>
+<body>
+
+<link rel="import" href="../components/header.html?__inline">
+
+<!--
+<div class="tx-box">
+  <ul class="tx-nvaBar">
+    <li>您现在的位置：</li>
+    <li onclick="window.history.go(-1)">招商加盟&nbsp;&nbsp;&gt;&nbsp;&nbsp;</li>
+    <li>个人信息</li>
+  </ul>
+</div>
+-->
+
+<div class="tx-box" id="join-step-app" style="position: relative;margin-top: 110px;">
+  <ul class="user-menu">
+    <li onclick="window.location.href = 'user-info.html'">个人信息</li>
+    <li class="active" id="go-joinStep">加盟流程</li>
+  </ul>
+
+  <div class="user-box">
+    <ul class="step-box">
+      <li>
+        <i class="icon"></i>
+        <div class="text">
+          <h6>第一步</h6>
+          <h5>提交申请</h5>
+        </div>
+      </li>
+      <li class="active">
+        <i class="icon"></i>
+        <div class="text">
+          <h6>第二步</h6>
+          <h5>支付费用</h5>
+        </div>
+      </li>
+      <li>
+        <i class="icon"></i>
+        <div class="text">
+          <h6>第三步</h6>
+          <h5>资料审核</h5>
+        </div>
+      </li>
+      <li>
+        <i class="icon"></i>
+        <div class="text">
+          <h6>第四步</h6>
+          <h5>达成合作</h5>
+        </div>
+      </li>
+    </ul>
+
+    <div class="content" style="line-height: 24px;color: #2E2E2E;">
+      1、加盟费5万元人民币或者500TKC
+      <br>2、加盟保证金10万元人民币（当年营业额超过20万，可退还）
+    </div>
+  </div>
+
+  <div class="user-box" style="margin-top: 20px">
+    <div class="content">
+      <div class="qrCode">
+        <img src="../img/join/qrCode-tkc.JPG">
+        <div>
+          通过此二维码支付TKC，
+          <br>支付成功后填写转账安全宝地址。
+        </div>
+      </div>
+
+      <div class="join-step-title">
+        <span>*</span>若使用银行卡转账，此项可不填
+      </div>
+
+      <div class="user-form-item" style="margin-bottom: 0" :class="{'input-focus':stepData.payAddress}">
+        <label class="title">转账安全宝地址</label>
+        <input type="text" class="user-input" v-model="stepData.payAddress"/>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="user-box" style="margin-top: 20px">
+    <div class="content">
+      <div class="qrCode">
+        <img src="../img/join/kapian.jpg" style="width: 300px;height: 180px">
+        <div>
+          公司全称：上海顶顺线艺电子商务有限公司
+          <br>开户行：中国建设银行股份有限公司上海长宁支行
+        </div>
+      </div>
+
+      <div class="join-step-title">
+        <span>*</span>通过银行卡号进行转账，请填写转账卡号及账户所有人姓名
+      </div>
+
+      <div class="user-form-item" :class="{'input-focus':stepData.bankUserName}">
+        <label class="title">账户持有人姓名</label>
+        <input type="text" class="user-input" v-model="stepData.bankUserName"/>
+      </div>
+
+      <div class="user-form-item" style="margin-bottom: 0" :class="{'input-focus':stepData.bankUserAccount}">
+        <label class="title">转账卡号</label>
+        <input type="text" class="user-input" v-model="stepData.bankUserAccount"/>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="user-box" style="margin-top: 20px">
+    <div class="content">
+      <div class="qrCode">
+        <p class="transfer">
+          <input type="file" id="image-upload" multiple @change="imageUpload($event)">
+        </p>
+        <div class="join-step-title" style="display: inline-block">
+          <span>*</span>如果是通过银行卡号进行转账，需在此上传转账回执单
+          <br>方便工作人员进行审核。
+        </div>
+      </div>
+
+      <ul class="transfer-box">
+        <li v-for="item in receiptImgs" @click="receiptImgs = _.without(receiptImgs,item)">
+          <img :src="item">
+        </li>
+      </ul>
+
+      <div class="user-btn" style="margin-top: 50px" id="submit-step" @click="submit">下一步</div>
+
+      <div class="join-step-title" style="color: #3F3F3F;">
+        <span>*</span>提交申请后，工作人员会在3个工作日内进行回复
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<link rel="import" href="../components/footer.html?__inline">
+
+
+<script type="text/javascript" src="../js/main.js"></script>
+<link rel="import" href="../components/script.html?__inline">
+<script type="text/javascript" src="../lib/js/uploadFile.js"></script>
+<script type="text/javascript" src="../lib/js/vue.min.js"></script>
+<script type="text/javascript" src="../lib/layer/layer.js"></script>
+<script>
+
+  TxMain.init.joinStep();
+  TxMain.event.checkJoinStep();
+  new Vue({
+    el: '#join-step-app',
+    data: {
+      stepData: {},
+      receiptImgs: []
+    },
+    created: function () {
+      TxMain.event.checkJoinStep();
+      var step = store.get('tx-join-step');
+      if (_.isEmpty(step)) {
+        return false;
+      }
+
+      this.stepData.payAddress = step.payAddress;
+      this.stepData.bankUserName = step.bankUserName;
+      this.stepData.bankUserAccount = step.bankUserAccount;
+      this.stepData.id = step.id;
+
+      if (step.receiptImgs) {
+        this.receiptImgs = step.receiptImgs.split(';');
+      }
+    },
+    watch: {},
+    methods: {
+      imageUpload: function (e) {
+        var _this = this;
+        uploadImg({
+          ele: e.currentTarget,
+          type: 1,
+          format: ["jpg", "png"],
+          callback: function (res) {
+            _this.receiptImgs = _this.receiptImgs.concat(res.data.split(';'));
+          }
+        });
+      },
+      submit: function () {
+        var _this = this;
+
+        if (!this.stepData.bankUserName || !this.stepData.bankUserAccount) {
+          return layer.tips('请填写完整信息', '#submit-step', {tips: 1});
+        }
+
+        if (!this.receiptImgs.length) {
+          return layer.tips('请上传转账回执单', '#submit-step', {tips: 1});
+        }
+
+        this.stepData.receiptImgs = _.reduce(this.receiptImgs, function (memo, num) {
+          return memo + ';' + num;
+        });
+
+        $.http.put({
+          url: '/v3/web/certigier/{0}'.format(store.get('tx-join-step').id),
+          data: _this.stepData
+        }).then(function (res) {
+          if (res.code === '200') {
+            store.remove('tx-join-step');
+            TxMain.init.joinStep().then(function () {
+              window.location.href = 'join-stop-3.html';
+            });
+          } else {
+            layer.msg('系统异常，请稍候重试');
+          }
+        });
+      }
+    }
+  });
+
+  $('.user-form-item .user-input').on('focus', function () {
+    $(this).parents('.user-form-item').addClass('input-focus');
+  }).on('focusout', function () {
+    if (!$(this).val()) {
+      $(this).parents('.user-form-item').removeClass('input-focus');
+    }
+  });
+</script>
+</body>
+</html>

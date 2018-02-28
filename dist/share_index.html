@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+  <title>TailorX资讯详情分享页</title>
+  <link rel="stylesheet" href="css/utsoft.css"/>
+  <link rel="stylesheet" href="app/css/share.css"/>
+  <style>
+
+    .tx-share-box {
+      position: fixed;
+      width: 100%;
+      height: 50px;
+      line-height: 50px;
+      background-color: #FFFFFF;
+      z-index: 9999;
+      box-sizing: border-box;
+      padding-left: 15px;
+      padding-right: 15px;
+    }
+
+    .tx-share-box > img {
+      height: 35px;
+      vertical-align: middle;
+    }
+
+    .tx-share-box > ul {
+      display: inline-block;
+      vertical-align: middle;
+      margin-left: 10px;
+      max-width: 53%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .tx-share-box > ul li {
+      line-height: 18px;
+    }
+
+    .tx-share-box > p {
+      position: absolute;
+      right: 15px;
+      top: 10px;
+      line-height: 30px;
+      border: solid 1px #999;
+      padding-left: 10px;
+      padding-right: 10px;
+      border-radius: 3px;
+      background-color: #FFFFFF;
+    }
+    .tx-share-seat{
+      height: 60px;
+    }
+  </style>
+  <script type="text/javascript" src="lib/js/jquery-1.10.2.min.js"></script>
+  <script type="text/javascript">
+    /**
+     * Created on 2016/9/28.
+     */
+    window.addEventListener('DOMContentLoaded', initPage, false);
+    window.addEventListener('resize', initPage, false);
+    function initPage() {
+      var html = document.documentElement;
+      var windowWidth = html.clientWidth;
+      html.style.fontSize = windowWidth / 750 * 100 + 'px';
+    }
+  </script>
+
+</head>
+<body class="bg" style="min-width: inherit">
+<div class="tx-share-box">
+  <img src="img/logo2.png">
+  <ul>
+    <li>TAILORX</li>
+    <li style="color: #777777">发现生活，开启你的定制之旅</li>
+  </ul>
+  <p onclick="window.location.href = 'http://qr32.cn/BAD5qQ'">立即打开</p>
+</div>
+<div class="tx-share-seat"></div>
+
+<!--<header id="header">
+  <a class="back-btn" href="index.html"></a>
+  <h1 class="home-title">资讯详情</h1>
+</header>-->
+<div class="banner">
+  <img class="banner-img" src="img2/12.jpg"/>
+  <div class="head-infos">
+			<span class="head-img">
+				<img src="img2/pic3.jpg"/>
+			</span>
+    <span class="head-name">Wendy</span>
+  </div>
+</div>
+<div class="paragraph">
+  <h1 class="info-title">修身黑色小媳妇2017潮流时尚在线款式</h1>
+  <p class="info-p">简单大方的领口设计，简单大方的领口设计，简单大方的领口设计，简单大方的领口设计，简单大方的领口设计，简单大方的领口设计，简单大方的领口设计，简单大方的领口设计。</p>
+</div>
+<div class="container">
+  <div class="pic-txt">
+    <!--<img class="info-img" src="img2/10.jpg"/>
+    <p class="pic-p">简单大方的领口设计，简单大方的领口设计，简单大方的领口设计，简单大方的领口设计，简单大方的领口设计，简单大方的领口设计，简单大方的领口设计，简单大方的领口设计。</p>-->
+    <!--<img class="info-img" src="img2/11.jpg"/>
+    <p>简单大方的领口设计，简单大方的领口设计，简单大方的领口设计，简单大方的领口设计，简单大方的领口设计，简单大方的领口设计，简单大方的领口设计，简单大方的领口设计。</p>-->
+  </div>
+</div>
+
+
+<!--<footer class="download">
+  <a href="http://cdn.tailorx.cn/ui/pc/tailorx/download/app1.html">立即下载</a>
+</footer>-->
+<script type="text/javascript" src="js/config.js"></script>
+<script type="text/javascript">
+  function getURLParameter(name) {
+    return decodeURIComponent(( new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search) || [, ""])[1].replace(/\+/g, '%20')) || null;
+  }
+
+  var infoId = getURLParameter("infoId");
+//  console.log(infoId);
+
+//  console.log("ddd" + infoId);
+  $.ajax({
+    url: TxConfig.env.headUrl + '/v3/app/information/getInformationDetail',
+//			url : "http://192.168.50.211:30705/v2/app/showHomePage/getInformationDetail",
+//			url : "http://www.tailorx.cn/api/v2/app/showHomePage/getInformationDetail",
+    type: "POST",
+    //dataType: "json",
+    data: {
+      informationNo: infoId
+    },
+    success: function (data) {
+//      console.log(1111);
+//      console.log(data);
+      var response = eval("(" + data + ")");
+
+//      console.log(response);
+
+//      console.log(response.msg);
+      // 成功回调
+      if (response.code = '200') {
+//        console.log(response.data.designerName);
+        if (response.data.desList.length > 0) {
+          var list = response.data.desList;
+          for (var i = 0; i < list.length; i++) {
+
+            var obj = list[i];//表示单个对象
+            var pic = obj.infoPic;
+            var description = obj.description;
+            var html = '<img class="info-img" src="' + pic + '"/>'
+              + '<p class="pic-p">' + description + '</p>';
+            $(".pic-txt").append(html);
+          }
+        }
+        //将需要返回的数据封装到infoDetail
+        var infoDetailObj = {
+          "bannerImg": response.data.coverUrl,
+          "designerPhoto": response.data.designerPhoto,
+          "designerName": response.data.designerName,
+          "name": response.data.name,
+          "description": response.data.description,
+//						"others":otherAttr
+        };
+        $(".head-name").text(infoDetailObj.designerName);
+        $(".banner-img").attr("src", infoDetailObj.bannerImg);
+        $(".head-img img").attr("src", infoDetailObj.designerPhoto);
+        $(".info-title").text(infoDetailObj.name);
+        $(".info-p").text(infoDetailObj.description);
+//        console.log(infoDetailObj.designerName);
+      } else {
+        //获取数据失败
+        console.log("获取数据失败！");
+      }
+    },
+    error: function () {
+      console.log("ajax请求错误！");
+    }
+
+  });
+
+
+</script>
+
+</body>
+</html>
