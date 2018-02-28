@@ -4,9 +4,9 @@
   "author": "d.xuffy",
   "description": "c5-TailorX-web",
   "main": "fis-conf.js",
-  "homepage": "https://github.com/Xuffy/layui-wms",
+  "homepage": "https://github.com/Xuffy/c5-tailorx-web",
   "bugs": {
-    "url": "https://github.com/Xuffy/layuiwms/issues",
+    "url": "https://github.com/Xuffy/c5-tailorx-web/issues",
     "email": "d.xuffy@gamil.com"
   },
   "license": "MIT",
